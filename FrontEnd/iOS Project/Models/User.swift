@@ -11,6 +11,8 @@ struct User: Codable {
     
     // MARK: - Properties (data)
     
+    
+    
     // MARK: - init
     
 }
