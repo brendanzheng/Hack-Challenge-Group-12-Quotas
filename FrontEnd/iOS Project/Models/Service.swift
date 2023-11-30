@@ -13,6 +13,7 @@ class Service: Codable {
     
     private var imageURL: String
     private var name: String
+    private var description: String
     private var popularity: String
     private var cost: Int
     private var amountUsed: Int
@@ -20,9 +21,10 @@ class Service: Codable {
     
     // MARK: - init
     
-    init(imageURL: String, name: String, popularity: String, cost: Int, amountUsed: Int, frequencyOfUse: String) {
+    init(imageURL: String, name: String, description: String, popularity: String, cost: Int, amountUsed: Int, frequencyOfUse: String) {
         self.imageURL = imageURL
         self.name = name
+        self.description = description
         self.popularity = popularity
         self.cost = cost
         self.amountUsed = amountUsed
@@ -37,6 +39,10 @@ class Service: Codable {
     
     public func getName() -> String {
         return name
+    }
+    
+    public func getDescription() -> String {
+        return description
     }
     
     public func getPopularity() -> String {
