@@ -136,18 +136,21 @@ def create_a_service():
     """
     body = json.loads(request.data)
     service_name = body.get("name")
-    service_description = body.get("description")
-    service_quotas_required = body.get("quotas_required")
+    service_popularity = body.get("popularity")
+    service_cost = body.get("cost")
+    service_image_url = body.get("image_url")
     if (
         service_name is None
-        or service_description is None
-        or service_quotas_required is None
+        or service_popularity is None
+        or service_cost is None
+        or service_image_url is None
     ):
         return failure_response("Invalid fields provided", 400)
     new_service = Service(
         name=service_name,
-        description=service_description,
-        quotas_required=service_quotas_required,
+        popularity=service_popularity,
+        cost=service_cost,
+        image_url=service_image_url,
     )
     db.session.add(new_service)
     db.session.commit()
@@ -161,20 +164,23 @@ def update_a_service(service_id):
     """
     body = json.loads(request.data)
     service_name = body.get("name")
-    service_description = body.get("description")
-    service_quotas_required = body.get("quotas_required")
+    service_popularity = body.get("popularity")
+    service_cost = body.get("cost")
+    service_image_url = body.get("image_url")
     if (
         service_name is None
-        or service_description is None
-        or service_quotas_required is None
+        or service_popularity is None
+        or service_cost is None
+        or service_image_url is None
     ):
         return failure_response("Invalid fields provided", 400)
     service = Service.query.filter_by(id=service_id).first()
     if service is None:
         return failure_response("Service not found")
     service.name = service_name
-    service.description = service_description
-    service.quotas_required = service_quotas_required
+    service.popularity = service_popularity
+    service.cost = service_cost
+    service.image_url = service_image_url
     db.session.commit()
     return success_response(service.serialize())
 
@@ -190,6 +196,25 @@ def delete_a_service(service_id):
     db.session.delete(service)
     db.session.commit()
     return success_response(service.serialize())
+
+
+@app.route("/api/users/<int:user_id>/service/<int:service_id>/", methods=["POST"])
+def user_requests_service(user_id, service_id):
+    """
+    Endpoint for a user requesting a service
+    """
+    user = User.query.filter_by(id=user_id).first()
+    service = Service.query.filter_by(id=service_id).first()
+    if user is None or service is None:
+        return failure_response("User or service not found")
+    current_balance = user.quotas_left
+    service_cost = service.cost
+    if current_balance < service_cost:
+        return failure_response("User doesn't have enough quotas in their balance")
+    user.quotas_left = current_balance - service_cost
+    service.users.append(user)
+    db.session.commit()
+    return success_response(user.serialize())
 
 
 if __name__ == "__main__":

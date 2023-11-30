@@ -61,8 +61,9 @@ class Service(db.Model):
     __tablename__ = "service"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
-    quotas_required = db.Column(db.Integer, nullable=False)
+    popularity = db.Column(db.Float, nullable=False)
+    cost = db.Column(db.Integer, nullable=False)
+    image_url = db.Column(db.String, nullable=False)
     users = db.relationship(
         "User",
         secondary=user_service_assoc_table,
@@ -74,8 +75,9 @@ class Service(db.Model):
         Initialize a service object
         """
         self.name = kwargs.get("name")
-        self.description = kwargs.get("description")
-        self.quotas_required = kwargs.get("quotas_required")
+        self.popularity = kwargs.get("popularity")
+        self.cost = kwargs.get("cost")
+        self.image_url = kwargs.get("image_url")
 
     def serialize(self):
         """
@@ -84,8 +86,9 @@ class Service(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "description": self.description,
-            "quotas_required": self.quotas_required,
+            "popularity": self.popularity,
+            "cost": self.cost,
+            "image_url": self.image_url,
             "users": [u.serialize_basic_info() for u in self.users],
         }
 
@@ -96,6 +99,7 @@ class Service(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "description": self.description,
-            "quotas_required": self.quotas_required,
+            "popularity": self.popularity,
+            "cost": self.cost,
+            "image_url": self.image_url,
         }
