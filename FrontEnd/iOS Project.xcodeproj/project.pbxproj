@@ -21,7 +21,10 @@
 		EF1824042B09AECC005ED67A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = EF1824032B09AECC005ED67A /* SDWebImage */; };
 		EF1824062B09AECC005ED67A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EF1824052B09AECC005ED67A /* SDWebImageMapKit */; };
 		EF7591682B09C78300360242 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7591672B09C78300360242 /* UIColor+.swift */; };
+		EF9CA6252B1632A100B5E9DF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */; };
+		EF9DFD8F2B190F1500669D38 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */; };
 		EF9F179E2B0AC9B800C88F4A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9F179D2B0AC9B800C88F4A /* Service.swift */; };
+		EFA8A67C2B1822CA007F42F0 /* FilterBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA8A67B2B1822CA007F42F0 /* FilterBarCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +39,10 @@
 		EF1823F62B09971A005ED67A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EF1823F82B099726005ED67A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF7591672B09C78300360242 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		EF9F179D2B0AC9B800C88F4A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		EFA8A67B2B1822CA007F42F0 /* FilterBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				EF1823DF2B0994A1005ED67A /* ViewController.swift */,
+				EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */,
+				EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -108,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				EF1823F42B099710005ED67A /* ServicesCollectionViewCell.swift */,
+				EFA8A67B2B1822CA007F42F0 /* FilterBarCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,9 +232,12 @@
 				EF9F179E2B0AC9B800C88F4A /* Service.swift in Sources */,
 				EF1823F52B099710005ED67A /* ServicesCollectionViewCell.swift in Sources */,
 				EF1823E02B0994A1005ED67A /* ViewController.swift in Sources */,
+				EFA8A67C2B1822CA007F42F0 /* FilterBarCollectionViewCell.swift in Sources */,
 				EF1823DC2B0994A1005ED67A /* AppDelegate.swift in Sources */,
 				EF1823F72B09971A005ED67A /* User.swift in Sources */,
+				EF9CA6252B1632A100B5E9DF /* ProfileViewController.swift in Sources */,
 				EF1823DE2B0994A1005ED67A /* SceneDelegate.swift in Sources */,
+				EF9DFD8F2B190F1500669D38 /* DescriptionViewController.swift in Sources */,
 				EF7591682B09C78300360242 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

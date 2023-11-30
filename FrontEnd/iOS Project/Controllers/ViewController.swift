@@ -13,14 +13,28 @@ class ViewController: UIViewController {
     // MARK: - Properties (view)
     
     private var servicesCollectionView: UICollectionView!
+    private var filterBarCollectionView: UICollectionView!
+    private let profileButton = UIButton()
+    private let searchBar = UISearchBar()
     
     // MARK: - Properties (data)
     
     // fill service with dummy data until networking is integrated
     private var allServices: [Service] = [
-        Service(imageURL: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg", name: "Calendar", popularity: "4.5", cost: 3, amountUsed: 8, frequencyOfUse: "Monthly"),
-        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", popularity: "4.9", cost: 1, amountUsed: 17, frequencyOfUse: "Daily")
+        Service(imageURL: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg", name: "Calendar", description: "designed to keep a calendar of all of your events", popularity: "4.5", cost: 3, amountUsed: 8, frequencyOfUse: "Monthly"),
+        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1, amountUsed: 17, frequencyOfUse: "Daily"),
+        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.8", cost: 3, amountUsed: 17, frequencyOfUse: "Daily"),
+        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "1.0", cost: 5, amountUsed: 17, frequencyOfUse: "Daily"),
+        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1, amountUsed: 17, frequencyOfUse: "Daily"),
+        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "3.0", cost: 2, amountUsed: 17, frequencyOfUse: "Daily")
     ]
+    private var serviceNames: [String] = []
+    private var selectedServices: [Service] = []
+    private var filters: [String] = ["All", "Favorites", "Most Popular", "Lowest Cost"]
+    private var selectedFilter: String = "All"
+    private var favoriteServices: [Service] = []
+    private var namesOfFavoriteServices: [String] = []
+    private var user: User!
     
     // MARK: - viewDidLoad
     
@@ -30,8 +44,12 @@ class ViewController: UIViewController {
         title = "App Name"
         view.backgroundColor = UIColor.white
         
-        setUpServicesCollectionView()
         
+        setUpServicesCollectionView()
+        setUpSearchBar()
+        setUpFilterBarCollectionView()
+        setUpProfileButton()
+        filterServices()
     }
     
     // MARK: - Set Up Views
@@ -57,19 +75,132 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().offset(32)
             make.trailing.equalToSuperview().offset(-32)
         }
+        
+        // MARK: - REMOVE THE NEXT LINE WHEN NETWORKING INTEGRATION IS COMPLETED
+        selectedServices = allServices
     }
     
+    private func setUpFilterBarCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 12
+        
+        filterBarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        filterBarCollectionView.backgroundColor = UIColor.white
+        filterBarCollectionView.showsHorizontalScrollIndicator = false
+        
+        filterBarCollectionView.register(FilterBarCollectionViewCell.self, forCellWithReuseIdentifier: FilterBarCollectionViewCell.reuse)
+        
+        filterBarCollectionView.dataSource = self
+        filterBarCollectionView.delegate = self
+        
+        view.addSubview(filterBarCollectionView)
+        
+        filterBarCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.height.equalTo(30)
+        }
+    }
+    
+    private func setUpSearchBar() {
+        searchBar.placeholder = "Search"
+        searchBar.delegate = self
+        view.addSubview(searchBar)
+        
+        searchBar.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(32)
+            make.trailing.equalToSuperview().offset(-32)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
+        
+    }
+    
+    // MARK: - CollectionViewHelpers
+    
+    private func filterServices() {
+        namesOfFavoriteServices = favoriteServices.map { $0.getName() }
+        
+        if selectedFilter == "All" {
+            selectedServices = allServices
+        }
+        else if selectedFilter == "Favorites" {
+            selectedServices = favoriteServices
+        }
+        else if selectedFilter == "Most Popular" {
+            selectedServices = allServices.filter { Double($0.getPopularity())! >= 4.8 }
+        }
+        else if selectedFilter == "Lowest Cost" {
+            selectedServices = allServices.filter { Int(exactly: $0.getCost())! <= 1 }
+        }
+        servicesCollectionView.reloadData()
+    }
+    
+    // MARK: - Button Helpers
+    
+    private func setUpProfileButton() {
+        profileButton.setImage(UIImage(systemName: "person"), for: .normal)
+        profileButton.tintColor = UIColor.black
+        profileButton.backgroundColor = UIColor.white
+        profileButton.addTarget(self, action: #selector(pushProfilePage), for: .touchUpInside)
+        
+        let emptySpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        emptySpace.width = 15
+        let profileButton = UIBarButtonItem(customView: profileButton)
+        
+        navigationItem.rightBarButtonItems = [emptySpace, profileButton]
+    }
+    
+    @objc private func pushProfilePage() {
+        let profileViewController = ProfileViewController()
+        navigationController?.pushViewController(profileViewController, animated: true)
+    }
+    
+    private func pushSelectedService(with service: Service) {
+        let descriptionViewController = DescriptionViewController(with: service)
+        navigationController?.pushViewController(descriptionViewController, animated: true)
+    }
+    
+    
+    
+    
     // MARK: - Networking
+    
+    // fetch all services
+    // fetch user data
     
     
 }
 
 // MARK: - Delegation
 
+
+// MARK: - FilterBarCollectionViewDelegate
+
+protocol FilterCollectionViewDelegate: AnyObject {
+    func tapFilterButton(with filter: String)
+}
+
+extension ViewController: FilterCollectionViewDelegate {
+    func tapFilterButton(with filter: String) {
+        selectedFilter = filter
+        filterServices()
+        filterBarCollectionView.reloadData()
+        servicesCollectionView.reloadData()
+    }
+    
+}
+
+
 // MARK: - UICollectionViewDelegate
 
 extension ViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedService = selectedServices[indexPath.item]
+        pushSelectedService(with: selectedService)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -77,14 +208,33 @@ extension ViewController: UICollectionViewDelegate {
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ServicesCollectionViewCell.reuse, for: indexPath) as! ServicesCollectionViewCell
-        let service = allServices[indexPath.item]
-        cell.configure(with: service)
-        return cell
+        if collectionView == filterBarCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterBarCollectionViewCell.reuse, for: indexPath) as! FilterBarCollectionViewCell
+            let filter = filters[indexPath.item]
+            cell.configure(with: filter, isSelected: selectedFilter == filter, delegate: self)
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ServicesCollectionViewCell.reuse, for: indexPath) as! ServicesCollectionViewCell
+            let service = selectedServices[indexPath.item]
+            cell.configure(with: service)
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allServices.count
+        if collectionView == filterBarCollectionView {
+            return filters.count
+        } else {
+            return selectedServices.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == filterBarCollectionView {
+            return UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32)
+        } else {
+            return UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+        }
     }
     
 }
@@ -94,7 +244,33 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 184)
+        if collectionView == filterBarCollectionView {
+            return CGSize(width: 120, height: 50)
+        } else {
+            return CGSize(width: collectionView.bounds.width, height: 184)
+        }
+        
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension ViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        serviceNames = allServices.map { $0.getName() }
+        
+        if searchText == "" {
+            selectedServices = allServices
+        }
+        
+        for word in serviceNames {
+            if word.uppercased().contains(searchText.uppercased()) {
+                selectedServices = allServices.filter { word == $0.getName() }
+            }
+        }
+        
+        servicesCollectionView.reloadData()
     }
 }
 

@@ -19,4 +19,8 @@ class NetworkManager {
     
     private init() { }
     
+    // MARK: - Networking
+    
+    
+    
 }
