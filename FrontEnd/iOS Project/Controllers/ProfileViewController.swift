@@ -44,19 +44,19 @@ class ProfileViewController: UIViewController {
         setUpUsernametextfield()
         setUpUserIdtextfield()
         setUpservicestextfield()
-        }
+    }
 
-        init() {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        }
+    }
 
-        required init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        }
+    }
 
-        // MARK: - Set Up Views
+    // MARK: - Set Up Views
 
-        private func setUpProfilePictureImageView() {
+    private func setUpProfilePictureImageView() {
         profilePictureImageView.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysTemplate)
         profilePictureImageView.tintColor = .systemBackground
         profilePictureImageView.layer.cornerRadius = 48
@@ -68,9 +68,9 @@ class ProfileViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             make.width.height.equalTo(200)
         }
-        }
+    }
 
-        private func setUpUsernameLabel() {
+    private func setUpUsernameLabel() {
         // configure usernameLabel's text here
         usernameLabel.text = "Username"
         usernameLabel.font = .systemFont(ofSize: 30, weight: .semibold)
@@ -83,9 +83,9 @@ class ProfileViewController: UIViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
-        }
+    }
 
-        private func setUpUsernametextfield() {
+    private func setUpUsernametextfield() {
         //        usernametextfield.placeholder = "Edit Username"
         usernametextfield.layer.borderWidth = 1
         usernametextfield.layer.borderColor = UIColor.systemBackground.cgColor
@@ -102,10 +102,10 @@ class ProfileViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
         }
-        }
+    }
         //
 
-        private func setUpUserIdLabel() {
+    private func setUpUserIdLabel() {
         // configure userIdLabel's text here
         userIdLabel.text = "User ID"
         userIdLabel.font = .systemFont(ofSize: 30, weight: .semibold)
@@ -118,8 +118,9 @@ class ProfileViewController: UIViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
-        }
-        private func setUpUserIdtextfield() {
+    }
+        
+    private func setUpUserIdtextfield() {
         //        userIdtextfield.placeholder = "Edit User ID"
         userIdtextfield.layer.borderWidth = 1
         userIdtextfield.layer.borderColor = UIColor.systemBackground.cgColor
@@ -136,23 +137,24 @@ class ProfileViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
         }
-        }
+    }
 
-        private func setUpNumberOfServicesUsedLabel() {
+    private func setUpNumberOfServicesUsedLabel() {
         // configure numberOfServicesUsedLabel's text here
         numberOfServicesUsedLabel.text = "Services Used"
         numberOfServicesUsedLabel.font = .systemFont(ofSize: 30, weight: .semibold)
         numberOfServicesUsedLabel.textColor = UIColor.black
         numberOfServicesUsedLabel.textAlignment = .center
         view.addSubview(numberOfServicesUsedLabel)
-
+        
         numberOfServicesUsedLabel.snp.makeConstraints { make in
             make.top.equalTo(profilePictureImageView.snp.bottom).offset(229)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
-        }
-        private func setUpservicestextfield() {
+    }
+        
+    private func setUpservicestextfield() {
         //        servicestextfield.placeholder = "Edit User ID"
         servicestextfield.layer.borderWidth = 1
         servicestextfield.layer.borderColor = UIColor.systemBackground.cgColor
@@ -169,7 +171,7 @@ class ProfileViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
         }
-        }
+    }
 
 
-        }
+}

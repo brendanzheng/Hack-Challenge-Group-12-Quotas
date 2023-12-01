@@ -35,7 +35,7 @@ class DescriptionViewController: UIViewController {
         setUpServiceDescriptionLabel()
         setUpServiceCostLabel()
         setUpUseServiceButton()
-        setUpimageURL()
+        setUpImageURL()
     }
     
     init(with service: Service, imageUrl: String) {
@@ -92,7 +92,7 @@ class DescriptionViewController: UIViewController {
         }
     }
     
-    private func setUpimageURL() {
+    private func setUpImageURL() {
         imageURL.sd_setImage(with: URL(string: images))
         
         imageURL.layer.cornerRadius = 32 / 2
@@ -133,7 +133,6 @@ class DescriptionViewController: UIViewController {
         view.addSubview(useServiceButton)
         
         useServiceButton.snp.makeConstraints { make in
-            //
             make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
             make.width.equalTo(150)
@@ -149,6 +148,6 @@ class DescriptionViewController: UIViewController {
         
         // this function decreases the amount of quotas the user has
         // should be implemented through the use of networking
-        // pseudocode: user.getQuotasLeft() - 1
+        // pseudocode example for quota cost of 1: user.getQuotasLeft() - 1
     }
 }

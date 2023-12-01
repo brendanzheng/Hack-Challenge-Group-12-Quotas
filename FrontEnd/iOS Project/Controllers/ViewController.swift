@@ -124,7 +124,7 @@ class ViewController: UIViewController {
         
     }
     
-    // MARK: - CollectionViewHelpers
+    // MARK: - CollectionView Helpers
     
     private func filterServices() {
         namesOfFavoriteServices = favoriteServices.map { $0.getName() }
