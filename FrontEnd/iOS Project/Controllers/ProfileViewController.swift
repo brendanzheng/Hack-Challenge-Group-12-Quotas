@@ -16,11 +16,10 @@ class ProfileViewController: UIViewController {
     private let profilePictureImageView = UIImageView()
     private let usernameLabel = UILabel()
     private let userIdLabel = UILabel()
-    private let numberOfServicesUsedLabel = UILabel()
-    private let usernametextfield = UITextField ()
-    private let userIdtextfield = UITextField ()
-    private let servicestextfield = UITextField ()
-    
+    private let usernametextfield = UITextField()
+    private let userIdtextfield = UITextField()
+    private let servicesUsedButton = UIButton()
+    private let deleteAccountButton = UIButton()
     
     
     // MARK: - Properties (data)
@@ -32,18 +31,18 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Profile"
-        view.backgroundColor = UIColor.aFinal.silver/*UIColor(red: 245/255, green: 245/255, blue: 250/255, alpha: 1.0)*/
+        title = "Profile"
+        view.backgroundColor = UIColor.aFinal.silver
         
 
         setUpProfilePictureImageView()
         setUpUsernameLabel()
         setUpUserIdLabel()
         setUpUserIdLabel()
-        setUpNumberOfServicesUsedLabel()
         setUpUsernametextfield()
         setUpUserIdtextfield()
-        setUpservicestextfield()
+        setUpServicesUsedButton()
+        setUpDeleteAccountButton()
     }
 
     init() {
@@ -71,7 +70,6 @@ class ProfileViewController: UIViewController {
     }
 
     private func setUpUsernameLabel() {
-        // configure usernameLabel's text here
         usernameLabel.text = "Username"
         usernameLabel.font = .systemFont(ofSize: 30, weight: .semibold)
         usernameLabel.textColor = UIColor.black
@@ -86,7 +84,9 @@ class ProfileViewController: UIViewController {
     }
 
     private func setUpUsernametextfield() {
-        //        usernametextfield.placeholder = "Edit Username"
+        // configure user's username from backend integration
+        // for now we will just use the following
+        // usernametextfield.placeholder = "Edit Username"
         usernametextfield.layer.borderWidth = 1
         usernametextfield.layer.borderColor = UIColor.systemBackground.cgColor
         usernametextfield.layer.cornerRadius = 12
@@ -103,10 +103,8 @@ class ProfileViewController: UIViewController {
             make.height.equalTo(40)
         }
     }
-        //
 
     private func setUpUserIdLabel() {
-        // configure userIdLabel's text here
         userIdLabel.text = "User ID"
         userIdLabel.font = .systemFont(ofSize: 30, weight: .semibold)
         userIdLabel.textColor = UIColor.black
@@ -121,7 +119,8 @@ class ProfileViewController: UIViewController {
     }
         
     private func setUpUserIdtextfield() {
-        //        userIdtextfield.placeholder = "Edit User ID"
+        // configure user's user ID from backend integration
+        // userIdtextfield.placeholder = "Edit User ID"
         userIdtextfield.layer.borderWidth = 1
         userIdtextfield.layer.borderColor = UIColor.systemBackground.cgColor
         userIdtextfield.layer.cornerRadius = 12
@@ -138,40 +137,46 @@ class ProfileViewController: UIViewController {
             make.height.equalTo(40)
         }
     }
-
-    private func setUpNumberOfServicesUsedLabel() {
-        // configure numberOfServicesUsedLabel's text here
-        numberOfServicesUsedLabel.text = "Services Used"
-        numberOfServicesUsedLabel.font = .systemFont(ofSize: 30, weight: .semibold)
-        numberOfServicesUsedLabel.textColor = UIColor.black
-        numberOfServicesUsedLabel.textAlignment = .center
-        view.addSubview(numberOfServicesUsedLabel)
+    
+    private func setUpServicesUsedButton() {
+        servicesUsedButton.backgroundColor = UIColor.orange
+        servicesUsedButton.layer.cornerRadius = 25
+        servicesUsedButton.setTitle("Used Services", for: .normal)
+        servicesUsedButton.setTitleColor(UIColor.black, for: .normal)
+        servicesUsedButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        servicesUsedButton.addTarget(self, action: #selector(pushUserServicesHistory), for: .touchUpInside)
+        view.addSubview(servicesUsedButton)
         
-        numberOfServicesUsedLabel.snp.makeConstraints { make in
-            make.top.equalTo(profilePictureImageView.snp.bottom).offset(229)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
-        }
-    }
-        
-    private func setUpservicestextfield() {
-        //        servicestextfield.placeholder = "Edit User ID"
-        servicestextfield.layer.borderWidth = 1
-        servicestextfield.layer.borderColor = UIColor.systemBackground.cgColor
-        servicestextfield.layer.cornerRadius = 12
-        servicestextfield.textAlignment = .center
-        servicestextfield.textColor = .darkGray
-        servicestextfield.font = .systemFont(ofSize: 16)
-        view.addSubview(servicestextfield)
-
-        servicestextfield.snp.makeConstraints { make in
-            make.top.equalTo(numberOfServicesUsedLabel.snp.bottom).offset(8)
+        servicesUsedButton.snp.makeConstraints { make in
+            make.top.equalTo(profilePictureImageView.snp.bottom).offset(250)
             make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(40)
+            make.width.equalTo(200)
+            make.height.equalTo(50)
         }
     }
-
+    
+    private func setUpDeleteAccountButton() {
+        deleteAccountButton.backgroundColor = UIColor.red
+        deleteAccountButton.layer.cornerRadius = 25
+        deleteAccountButton.setTitle("Delete Account", for: .normal)
+        deleteAccountButton.setTitleColor(UIColor.black, for: .normal)
+        deleteAccountButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        view.addSubview(deleteAccountButton)
+        
+        deleteAccountButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-30)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(200)
+            make.height.equalTo(50)
+        }
+    }
+    
+    // MARK: - Button Helpers
+    
+    @objc private func pushUserServicesHistory() {
+        let userServicesViewController = UserServicesViewController()
+        navigationController?.pushViewController(userServicesViewController, animated: true)
+    }
+    
 
 }
