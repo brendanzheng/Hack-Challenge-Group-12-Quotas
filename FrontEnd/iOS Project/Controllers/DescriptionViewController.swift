@@ -89,7 +89,7 @@ class DescriptionViewController: UIViewController {
     }
     
     private func setUpUseServiceButton() {
-        useServiceButton.backgroundColor = UIColor.red
+        useServiceButton.backgroundColor = UIColor.aFinal.ruby
         useServiceButton.layer.cornerRadius = 4
         useServiceButton.setTitle("Use Service", for: .normal)
         useServiceButton.setTitleColor(UIColor.black, for: .normal)

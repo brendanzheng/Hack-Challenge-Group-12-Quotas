@@ -11,27 +11,30 @@ class Service: Codable {
     
     // MARK: - Properties (data)
     
+    private var serviceId: Int
     private var imageURL: String
     private var name: String
     private var description: String
     private var popularity: String
     private var cost: Int
-    private var amountUsed: Int
-    private var frequencyOfUse: String
     
     // MARK: - init
     
-    init(imageURL: String, name: String, description: String, popularity: String, cost: Int, amountUsed: Int, frequencyOfUse: String) {
+    init(serviceId: Int, imageURL: String, name: String, description: String, popularity: String, cost: Int) {
+        
+        self.serviceId = serviceId
         self.imageURL = imageURL
         self.name = name
         self.description = description
         self.popularity = popularity
         self.cost = cost
-        self.amountUsed = amountUsed
-        self.frequencyOfUse = frequencyOfUse
     }
     
     // MARK: - Get Functions
+    
+    public func getServiceId() -> Int {
+        return serviceId
+    }
     
     public func getImageURL() -> String {
         return imageURL
@@ -51,14 +54,6 @@ class Service: Codable {
     
     public func getCost() -> Int {
         return cost
-    }
-    
-    public func getAmountUsed() -> Int {
-        return amountUsed
-    }
-    
-    public func getFrequencyOfUse() -> String {
-        return frequencyOfUse
     }
     
     

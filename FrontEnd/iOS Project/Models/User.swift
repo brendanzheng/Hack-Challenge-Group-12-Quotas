@@ -11,13 +11,15 @@ struct User: Codable {
     
     // MARK: - Properties (data)
     
-    private var userId: String
+    private var profilePicture: String
+    private var userId: Int
     private var username: String
     private var quotasLeft: Int
     
     // MARK: - init
     
-    init(userId: String, username: String, quotasLeft: Int) {
+    init(profilePicture: String, userId: Int, username: String, quotasLeft: Int) {
+        self.profilePicture = profilePicture
         self.userId = userId
         self.username = username
         self.quotasLeft = quotasLeft
@@ -25,7 +27,11 @@ struct User: Codable {
     
     // MARK: - Get Functions
     
-    public func getUserId() -> String {
+    public func getProfilePicture() -> String {
+        return profilePicture
+    }
+    
+    public func getUserId() -> Int {
         return userId
     }
     

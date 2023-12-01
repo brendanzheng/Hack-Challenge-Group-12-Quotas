@@ -25,7 +25,7 @@ class FilterBarCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.aFinal.silver
         
         setUpFilterButton()
     }

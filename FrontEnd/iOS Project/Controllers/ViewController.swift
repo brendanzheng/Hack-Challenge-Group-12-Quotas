@@ -21,12 +21,12 @@ class ViewController: UIViewController {
     
     // fill service with dummy data until networking is integrated
     private var allServices: [Service] = [
-        Service(imageURL: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg", name: "Calendar", description: "designed to keep a calendar of all of your events", popularity: "4.5", cost: 3, amountUsed: 8, frequencyOfUse: "Monthly"),
-        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1, amountUsed: 17, frequencyOfUse: "Daily"),
-        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.8", cost: 3, amountUsed: 17, frequencyOfUse: "Daily"),
-        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "1.0", cost: 5, amountUsed: 17, frequencyOfUse: "Daily"),
-        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1, amountUsed: 17, frequencyOfUse: "Daily"),
-        Service(imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "3.0", cost: 2, amountUsed: 17, frequencyOfUse: "Daily")
+        Service(serviceId: 1, imageURL: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg", name: "Calendar", description: "designed to keep a calendar of all of your events", popularity: "4.5", cost: 3),
+        Service(serviceId: 2, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1),
+        Service(serviceId: 3, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.8", cost: 3),
+        Service(serviceId: 4, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "1.0", cost: 5),
+        Service(serviceId: 5, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1),
+        Service(serviceId: 6, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "3.0", cost: 2)
     ]
     private var serviceNames: [String] = []
     private var selectedServices: [Service] = []
@@ -42,8 +42,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         title = "App Name"
-        view.backgroundColor = UIColor.white
-        
+        view.backgroundColor = UIColor.aFinal.silver
+        navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
         
         setUpServicesCollectionView()
         setUpSearchBar()
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         layout.minimumLineSpacing = 24
         
         servicesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        servicesCollectionView.backgroundColor = UIColor.white
+        servicesCollectionView.backgroundColor = UIColor.aFinal.silver
         servicesCollectionView.alwaysBounceVertical = true
         
         servicesCollectionView.register(ServicesCollectionViewCell.self, forCellWithReuseIdentifier: ServicesCollectionViewCell.reuse)
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         view.addSubview(servicesCollectionView)
         
         servicesCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview().offset(32)
             make.trailing.equalToSuperview().offset(-32)
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         layout.minimumInteritemSpacing = 12
         
         filterBarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        filterBarCollectionView.backgroundColor = UIColor.white
+        filterBarCollectionView.backgroundColor = UIColor.aFinal.silver
         filterBarCollectionView.showsHorizontalScrollIndicator = false
         
         filterBarCollectionView.register(FilterBarCollectionViewCell.self, forCellWithReuseIdentifier: FilterBarCollectionViewCell.reuse)
@@ -100,13 +100,20 @@ class ViewController: UIViewController {
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(30)
+            make.height.equalTo(35)
         }
     }
     
     private func setUpSearchBar() {
         searchBar.placeholder = "Search"
         searchBar.delegate = self
+        searchBar.barTintColor = UIColor.aFinal.silver
+        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = UIColor.white
+            textField.layer.cornerRadius = 10
+            textField.clipsToBounds = true
+        }
         view.addSubview(searchBar)
         
         searchBar.snp.makeConstraints { make in
@@ -141,8 +148,9 @@ class ViewController: UIViewController {
     
     private func setUpProfileButton() {
         profileButton.setImage(UIImage(systemName: "person"), for: .normal)
+        profileButton.layer.cornerRadius = 10
         profileButton.tintColor = UIColor.black
-        profileButton.backgroundColor = UIColor.white
+        profileButton.backgroundColor = UIColor.aFinal.silver
         profileButton.addTarget(self, action: #selector(pushProfilePage), for: .touchUpInside)
         
         let emptySpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -233,7 +241,7 @@ extension ViewController: UICollectionViewDataSource {
         if collectionView == filterBarCollectionView {
             return UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32)
         } else {
-            return UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
+            return UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         }
     }
     
@@ -245,7 +253,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == filterBarCollectionView {
-            return CGSize(width: 120, height: 50)
+            return CGSize(width: 116, height: 32)
         } else {
             return CGSize(width: collectionView.bounds.width, height: 184)
         }

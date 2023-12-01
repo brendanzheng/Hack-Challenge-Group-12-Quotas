@@ -32,7 +32,7 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.systemCyan
+        backgroundColor = UIColor.aFinal.offWhite
         layer.cornerRadius = 16
         
         setUpServiceImage()
@@ -41,8 +41,6 @@ class ServicesCollectionViewCell: UICollectionViewCell {
         setUpPopularityLabel()
         setUpQuotaCostImageIcon()
         setUpQuotaCost()
-        setUpFrequencyOfUseLabel()
-        setUpAmountUsedLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -57,10 +55,8 @@ class ServicesCollectionViewCell: UICollectionViewCell {
         
         serviceImage.sd_setImage(with: URL(string: service.getImageURL()))
         nameOfServiceLabel.text = service.getName()
-        popularityLabel.text = service.getPopularity()
+        popularityLabel.text = "\(service.getPopularity())"
         quotaCostLabel.text = "\(service.getCost())"
-        frequencyOfUseLabel.text = "Frequency of Use: \(service.getFrequencyOfUse())"
-        amountUsedLabel.text = "Number of Times Used: \(service.getAmountUsed())"
         
     }
     
@@ -72,15 +68,16 @@ class ServicesCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(serviceImage)
         
         serviceImage.snp.makeConstraints { make in
-            make.top.trailing.bottom.equalToSuperview()
-            make.leading.equalTo(contentView.snp.trailing).offset(-100)
+            make.top.equalToSuperview().offset(10)
+            make.trailing.bottom.equalToSuperview().offset(-10)
+            make.leading.equalTo(contentView.snp.trailing).offset(-150)
             make.size.equalTo(50)
         }
     }
     
     private func setUpNameOfService() {
         nameOfServiceLabel.textColor = UIColor.black
-        nameOfServiceLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        nameOfServiceLabel.font = .systemFont(ofSize: 30, weight: .semibold)
         nameOfServiceLabel.numberOfLines = 2
         contentView.addSubview(nameOfServiceLabel)
         
@@ -91,7 +88,7 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpPopularityImageIcon() {
-        popularityImageIcon.sd_setImage(with: URL(string: "https://icons.veryicon.com/png/o/miscellaneous/linear-icon-14/popular-11.png"))
+        popularityImageIcon.sd_setImage(with: URL(string: "https://png.pngtree.com/png-vector/20190226/ourmid/pngtree-fire-logo-icon-design-template-vector-png-image_705402.jpg"))
         popularityImageIcon.tintColor = UIColor.black
         popularityImageIcon.layer.cornerRadius = 12
         popularityImageIcon.layer.masksToBounds = true
@@ -100,25 +97,25 @@ class ServicesCollectionViewCell: UICollectionViewCell {
         popularityImageIcon.snp.makeConstraints { make in
             make.top.equalTo(nameOfServiceLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(8)
-            make.size.equalTo(24)
+            make.size.equalTo(40)
         }
     }
     
     private func setUpPopularityLabel() {
-        popularityLabel.textColor = UIColor.yellow
-        popularityLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        popularityLabel.textColor = UIColor.gray
+        popularityLabel.font = .systemFont(ofSize: 20, weight: .regular)
         popularityLabel.numberOfLines = 1
         contentView.addSubview(popularityLabel)
         
         popularityLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameOfServiceLabel.snp.bottom).offset(12)
+            make.top.equalTo(nameOfServiceLabel.snp.bottom).offset(18)
             make.leading.equalTo(popularityImageIcon.snp.trailing).offset(12)
             make.trailing.equalTo(serviceImage.snp.leading)
         }
     }
     
     private func setUpQuotaCostImageIcon() {
-        quotaCostImageIcon.sd_setImage(with: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4e0MeqXRI3zse1gg7PyLj5sU-quoEwc9jkA&usqp=CAU"))
+        quotaCostImageIcon.sd_setImage(with: URL(string: "https://p7.hiclipart.com/preview/419/952/23/price-tag-computer-icons-music-price-icon.jpg"))
         quotaCostImageIcon.tintColor = UIColor.black
         quotaCostImageIcon.layer.cornerRadius = 12
         quotaCostImageIcon.layer.masksToBounds = true
@@ -127,18 +124,18 @@ class ServicesCollectionViewCell: UICollectionViewCell {
         quotaCostImageIcon.snp.makeConstraints { make in
             make.top.equalTo(popularityImageIcon.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(8)
-            make.size.equalTo(24)
+            make.size.equalTo(40)
         }
     }
     
     private func setUpQuotaCost() {
-        quotaCostLabel.textColor = UIColor.red
-        quotaCostLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        quotaCostLabel.textColor = UIColor.gray
+        quotaCostLabel.font = .systemFont(ofSize: 20, weight: .regular)
         quotaCostLabel.numberOfLines = 1
         contentView.addSubview(quotaCostLabel)
         
         quotaCostLabel.snp.makeConstraints { make in
-            make.top.equalTo(popularityLabel.snp.bottom).offset(12)
+            make.top.equalTo(popularityLabel.snp.bottom).offset(20)
             make.leading.equalTo(quotaCostImageIcon.snp.trailing).offset(12)
             make.trailing.equalTo(serviceImage.snp.leading)
         }
