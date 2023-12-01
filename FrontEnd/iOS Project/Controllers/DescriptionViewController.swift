@@ -16,6 +16,8 @@ class DescriptionViewController: UIViewController {
     private let serviceDescriptionLabel = UILabel()
     private let serviceCostLabel = UILabel()
     private let useServiceButton = UIButton()
+    private let imageURL = UIImageView()
+    var images : String
     
     // MARK: - Properties (data)
     
@@ -33,10 +35,12 @@ class DescriptionViewController: UIViewController {
         setUpServiceDescriptionLabel()
         setUpServiceCostLabel()
         setUpUseServiceButton()
+        setUpimageURL()
     }
     
-    init(with service: Service) {
+    init(with service: Service, imageUrl: String) {
         self.service = service
+        images = imageUrl
         
         serviceNameLabel.text = service.getName()
         serviceDescriptionLabel.text = service.getDescription()
@@ -88,6 +92,21 @@ class DescriptionViewController: UIViewController {
         }
     }
     
+    private func setUpimageURL() {
+        imageURL.sd_setImage(with: URL(string: images))
+        
+        imageURL.layer.cornerRadius = 32 / 2
+        imageURL.layer.masksToBounds = true
+        imageURL.clipsToBounds = true
+        view.addSubview(imageURL)
+        
+        imageURL.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(100)
+                make.trailing.equalToSuperview().offset(-20)
+                make.width.height.equalTo(150)
+        }
+    }
+    
     private func setUpUseServiceButton() {
         useServiceButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 80/255, alpha: 1.0)
         useServiceButton.layer.cornerRadius = 8
@@ -104,23 +123,24 @@ class DescriptionViewController: UIViewController {
         useServiceButton.layer.borderColor = UIColor.aFinal.yellowOrange.cgColor
         
         let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
-            pulseAnimation.duration = 0.5
-            pulseAnimation.fromValue = 0.95
-            pulseAnimation.toValue = 1.0
-            pulseAnimation.autoreverses = true
-            pulseAnimation.repeatCount = Float.infinity
-            useServiceButton.layer.add(pulseAnimation, forKey: "pulse")
+        pulseAnimation.duration = 0.5
+        pulseAnimation.fromValue = 0.95
+        pulseAnimation.toValue = 1.0
+        pulseAnimation.autoreverses = true
+        pulseAnimation.repeatCount = Float.infinity
+        useServiceButton.layer.add(pulseAnimation, forKey: "pulse")
         useServiceButton.addTarget(self, action: #selector(serviceButtonPressed), for: .touchUpInside)
         view.addSubview(useServiceButton)
         
         useServiceButton.snp.makeConstraints { make in
-//           
+            //
             make.bottom.equalToSuperview().offset(-20)
-               make.centerX.equalToSuperview()
-               make.width.equalTo(150)
-               make.height.equalTo(50)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(50)
         }
-        
+    
+       
     }
     
     // MARK: - Button Helpers

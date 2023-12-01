@@ -166,7 +166,7 @@ class ViewController: UIViewController {
     }
     
     private func pushSelectedService(with service: Service) {
-        let descriptionViewController = DescriptionViewController(with: service)
+        let descriptionViewController = DescriptionViewController(with: service, imageUrl: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg")
         navigationController?.pushViewController(descriptionViewController, animated: true)
     }
     
