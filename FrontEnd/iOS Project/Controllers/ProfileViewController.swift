@@ -32,7 +32,9 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 250/255, alpha: 1.0)
+        self.title = "Profile"
+        view.backgroundColor = UIColor.aFinal.silver/*UIColor(red: 245/255, green: 245/255, blue: 250/255, alpha: 1.0)*/
+        
 
         setUpProfilePictureImageView()
         setUpUsernameLabel()
@@ -55,7 +57,8 @@ class ProfileViewController: UIViewController {
         // MARK: - Set Up Views
 
         private func setUpProfilePictureImageView() {
-        profilePictureImageView.image = UIImage(systemName: "person")
+        profilePictureImageView.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysTemplate)
+        profilePictureImageView.tintColor = .systemBackground
         profilePictureImageView.layer.cornerRadius = 48
         profilePictureImageView.layer.masksToBounds = true
         view.addSubview(profilePictureImageView)
@@ -85,7 +88,7 @@ class ProfileViewController: UIViewController {
         private func setUpUsernametextfield() {
         //        usernametextfield.placeholder = "Edit Username"
         usernametextfield.layer.borderWidth = 1
-        usernametextfield.layer.borderColor = UIColor.systemBlue.cgColor
+        usernametextfield.layer.borderColor = UIColor.systemBackground.cgColor
         usernametextfield.layer.cornerRadius = 12
         usernametextfield.textAlignment = .center
         usernametextfield.textColor = .darkGray
@@ -119,7 +122,7 @@ class ProfileViewController: UIViewController {
         private func setUpUserIdtextfield() {
         //        userIdtextfield.placeholder = "Edit User ID"
         userIdtextfield.layer.borderWidth = 1
-        userIdtextfield.layer.borderColor = UIColor.systemBlue.cgColor
+        userIdtextfield.layer.borderColor = UIColor.systemBackground.cgColor
         userIdtextfield.layer.cornerRadius = 12
         userIdtextfield.textAlignment = .center
         userIdtextfield.textColor = .darkGray
@@ -152,7 +155,7 @@ class ProfileViewController: UIViewController {
         private func setUpservicestextfield() {
         //        servicestextfield.placeholder = "Edit User ID"
         servicestextfield.layer.borderWidth = 1
-        servicestextfield.layer.borderColor = UIColor.systemBlue.cgColor
+        servicestextfield.layer.borderColor = UIColor.systemBackground.cgColor
         servicestextfield.layer.cornerRadius = 12
         servicestextfield.textAlignment = .center
         servicestextfield.textColor = .darkGray
