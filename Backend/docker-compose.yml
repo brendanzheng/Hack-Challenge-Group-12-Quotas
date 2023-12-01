@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  quotas:
+    image: bcz5/quotas:v1
+    ports:
+      - "8000:8000"

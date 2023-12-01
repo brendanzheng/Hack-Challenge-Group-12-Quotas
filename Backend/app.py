@@ -34,6 +34,10 @@ def failure_response(message, code=404):
 
 # Users
 @app.route("/")
+def hello_world():
+    return "Hello world!"
+
+
 @app.route("/api/users/")
 def get_all_users():
     """
