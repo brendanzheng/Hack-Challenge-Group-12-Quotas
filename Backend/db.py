@@ -18,6 +18,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String, nullable=False)
     quotas_left = db.Column(db.Integer, nullable=False)
+    profile_picture = db.Column(db.String, nullable=False)
     services = db.relationship(
         "Service",
         secondary=user_service_assoc_table,
@@ -30,6 +31,7 @@ class User(db.Model):
         """
         self.username = kwargs.get("username")
         self.quotas_left = kwargs.get("quotas_left")
+        self.profile_picture = kwargs.get("profile_picture")
 
     def serialize(self):
         """
@@ -39,17 +41,19 @@ class User(db.Model):
             "id": self.id,
             "username": self.username,
             "quotas_left": self.quotas_left,
+            "profile_picture": self.profile_picture,
             "services": [s.serialize_basic_info() for s in self.services],
         }
 
     def serialize_basic_info(self):
         """
-        Serializes a user object without information about their number of
-        remaining quotas or services
+        Serializes a user object without information about services
         """
         return {
             "id": self.id,
             "username": self.username,
+            "quotas_left": self.quotas_left,
+            "profile_picture": self.profile_picture,
         }
 
 
@@ -60,10 +64,11 @@ class Service(db.Model):
 
     __tablename__ = "service"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    image_url = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
     popularity = db.Column(db.Float, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
-    image_url = db.Column(db.String, nullable=False)
     users = db.relationship(
         "User",
         secondary=user_service_assoc_table,
@@ -75,6 +80,7 @@ class Service(db.Model):
         Initialize a service object
         """
         self.name = kwargs.get("name")
+        self.description = kwargs.get("description")
         self.popularity = kwargs.get("popularity")
         self.cost = kwargs.get("cost")
         self.image_url = kwargs.get("image_url")
@@ -85,10 +91,11 @@ class Service(db.Model):
         """
         return {
             "id": self.id,
+            "image_url": self.image_url,
             "name": self.name,
+            "description": self.description,
             "popularity": self.popularity,
             "cost": self.cost,
-            "image_url": self.image_url,
             "users": [u.serialize_basic_info() for u in self.users],
         }
 
@@ -98,8 +105,9 @@ class Service(db.Model):
         """
         return {
             "id": self.id,
+            "image_url": self.image_url,
             "name": self.name,
+            "description": self.description,
             "popularity": self.popularity,
             "cost": self.cost,
-            "image_url": self.image_url,
         }
