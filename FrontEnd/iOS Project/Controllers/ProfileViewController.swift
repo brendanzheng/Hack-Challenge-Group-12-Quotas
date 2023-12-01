@@ -161,6 +161,7 @@ class ProfileViewController: UIViewController {
         deleteAccountButton.setTitle("Delete Account", for: .normal)
         deleteAccountButton.setTitleColor(UIColor.black, for: .normal)
         deleteAccountButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        deleteAccountButton.addTarget(self, action: #selector(pushDeleteAccountViewController), for: .touchUpInside)
         view.addSubview(deleteAccountButton)
         
         deleteAccountButton.snp.makeConstraints { make in
@@ -176,6 +177,11 @@ class ProfileViewController: UIViewController {
     @objc private func pushUserServicesHistory() {
         let userServicesViewController = UserServicesViewController()
         navigationController?.pushViewController(userServicesViewController, animated: true)
+    }
+    
+    @objc private func pushDeleteAccountViewController() {
+        let deleteUserViewController = DeleteUserViewController()
+        navigationController?.pushViewController(deleteUserViewController, animated: true)
     }
     
 

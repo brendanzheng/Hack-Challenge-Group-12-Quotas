@@ -154,7 +154,7 @@ class ViewController: UIViewController {
         profileButton.addTarget(self, action: #selector(pushProfilePage), for: .touchUpInside)
         
         let emptySpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        emptySpace.width = 15
+        emptySpace.width = 23
         let profileButton = UIBarButtonItem(customView: profileButton)
         
         navigationItem.rightBarButtonItems = [emptySpace, profileButton]

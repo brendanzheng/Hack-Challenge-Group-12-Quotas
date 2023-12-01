@@ -21,6 +21,7 @@
 		EF1824042B09AECC005ED67A /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = EF1824032B09AECC005ED67A /* SDWebImage */; };
 		EF1824062B09AECC005ED67A /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EF1824052B09AECC005ED67A /* SDWebImageMapKit */; };
 		EF6BCD112B1A6A70001A7FBF /* UserServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6BCD102B1A6A70001A7FBF /* UserServicesViewController.swift */; };
+		EF6BCD132B1A87EA001A7FBF /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6BCD122B1A87EA001A7FBF /* DeleteUserViewController.swift */; };
 		EF7591682B09C78300360242 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7591672B09C78300360242 /* UIColor+.swift */; };
 		EF9CA6252B1632A100B5E9DF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */; };
 		EF9DFD8F2B190F1500669D38 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */; };
@@ -40,6 +41,7 @@
 		EF1823F62B09971A005ED67A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EF1823F82B099726005ED67A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF6BCD102B1A6A70001A7FBF /* UserServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServicesViewController.swift; sourceTree = "<group>"; };
+		EF6BCD122B1A87EA001A7FBF /* DeleteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserViewController.swift; sourceTree = "<group>"; };
 		EF7591672B09C78300360242 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */,
 				EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */,
 				EF6BCD102B1A6A70001A7FBF /* UserServicesViewController.swift */,
+				EF6BCD122B1A87EA001A7FBF /* DeleteUserViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				EF1823DC2B0994A1005ED67A /* AppDelegate.swift in Sources */,
 				EF1823F72B09971A005ED67A /* User.swift in Sources */,
 				EF9CA6252B1632A100B5E9DF /* ProfileViewController.swift in Sources */,
+				EF6BCD132B1A87EA001A7FBF /* DeleteUserViewController.swift in Sources */,
 				EF1823DE2B0994A1005ED67A /* SceneDelegate.swift in Sources */,
 				EF9DFD8F2B190F1500669D38 /* DescriptionViewController.swift in Sources */,
 				EF6BCD112B1A6A70001A7FBF /* UserServicesViewController.swift in Sources */,
