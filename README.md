@@ -13,10 +13,18 @@
 6. A list of how your app addresses each of the requirements:
 
 Backend:
-We chose to implement two tables: users and services. The users table stores information about the users such as their id, username, profile picture url, and number of quotas left. The services table stores information about the various services offered such as the id, name, description, image url, popularity, and cost. There is a many-to-many relationship between the two tables that allow us to easily figure all the people who have requested a given service as well as all the services a given person has requested.
+* Total of 11 routes (4 GET, 5 POST, 2 DELETE)
+  * Get all users/services
+  * Get a user/service
+  * Create a user/service
+  * Update a user/service
+  * Delete a user/service
+  * User requests a service   
+* Two tables with a many-to-many relationship
+  * User table
+  * Service table   
+* API specification in the submission form
 
-Our routes are quite simple. For both tables, we have routes that allow us to get all users/services (GET), get a single user/service (GET), create a user/service (POST), update a user/service (POST), and delete a user/service (DELETE). We have an additional route that allows us to process a user's request for a service (and update their remaining quotas accordingly). 
-
-8. Anything else you want your grader to know: Thank you!
+8. Anything else you want your grader to know: Nope, thank you!
 
 Note: The link, screenshots, and description will be used for the Hack Challenge website where we will showcase everyone’s final projects
