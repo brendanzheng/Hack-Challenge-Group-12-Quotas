@@ -16,6 +16,8 @@ class DescriptionViewController: UIViewController {
     private let serviceDescriptionLabel = UILabel()
     private let serviceCostLabel = UILabel()
     private let useServiceButton = UIButton()
+    private let imageURL = UIImageView()
+    var images : String
     
     // MARK: - Properties (data)
     
@@ -27,16 +29,18 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.aFinal.silver
         
         setUpServiceNameLabel()
         setUpServiceDescriptionLabel()
         setUpServiceCostLabel()
         setUpUseServiceButton()
+        setUpImageURL()
     }
     
-    init(with service: Service) {
+    init(with service: Service, imageUrl: String) {
         self.service = service
+        images = imageUrl
         
         serviceNameLabel.text = service.getName()
         serviceDescriptionLabel.text = service.getDescription()
@@ -88,22 +92,54 @@ class DescriptionViewController: UIViewController {
         }
     }
     
+    private func setUpImageURL() {
+        imageURL.sd_setImage(with: URL(string: images))
+        
+        imageURL.layer.cornerRadius = 32 / 2
+        imageURL.layer.masksToBounds = true
+        imageURL.clipsToBounds = true
+        view.addSubview(imageURL)
+        
+        imageURL.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(100)
+                make.trailing.equalToSuperview().offset(-20)
+                make.width.height.equalTo(150)
+        }
+    }
+    
     private func setUpUseServiceButton() {
-        useServiceButton.backgroundColor = UIColor.aFinal.ruby
-        useServiceButton.layer.cornerRadius = 4
+        useServiceButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 80/255, alpha: 1.0)
+        useServiceButton.layer.cornerRadius = 8
         useServiceButton.setTitle("Use Service", for: .normal)
-        useServiceButton.setTitleColor(UIColor.black, for: .normal)
-        useServiceButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        useServiceButton.setTitleColor(UIColor.white, for: .normal)
+        useServiceButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        
+        useServiceButton.layer.shadowColor = UIColor.black.cgColor
+        useServiceButton.layer.shadowOpacity = 0.3
+        useServiceButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        useServiceButton.layer.shadowRadius = 2
+        
+        useServiceButton.layer.borderWidth = 1
+        useServiceButton.layer.borderColor = UIColor.aFinal.yellowOrange.cgColor
+        
+        let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
+        pulseAnimation.duration = 0.5
+        pulseAnimation.fromValue = 0.95
+        pulseAnimation.toValue = 1.0
+        pulseAnimation.autoreverses = true
+        pulseAnimation.repeatCount = Float.infinity
+        useServiceButton.layer.add(pulseAnimation, forKey: "pulse")
         useServiceButton.addTarget(self, action: #selector(serviceButtonPressed), for: .touchUpInside)
         view.addSubview(useServiceButton)
         
         useServiceButton.snp.makeConstraints { make in
-            make.top.equalTo(serviceCostLabel.snp.bottom).offset(30)
+            make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(30)
+            make.width.equalTo(150)
+            make.height.equalTo(50)
         }
-        
+    
+       
     }
     
     // MARK: - Button Helpers
@@ -112,6 +148,6 @@ class DescriptionViewController: UIViewController {
         
         // this function decreases the amount of quotas the user has
         // should be implemented through the use of networking
-        // pseudocode: user.getQuotasLeft() - 1
+        // pseudocode example for quota cost of 1: user.getQuotasLeft() - 1
     }
 }

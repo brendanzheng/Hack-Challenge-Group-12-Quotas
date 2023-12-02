@@ -124,7 +124,7 @@ class ViewController: UIViewController {
         
     }
     
-    // MARK: - CollectionViewHelpers
+    // MARK: - CollectionView Helpers
     
     private func filterServices() {
         namesOfFavoriteServices = favoriteServices.map { $0.getName() }
@@ -154,7 +154,7 @@ class ViewController: UIViewController {
         profileButton.addTarget(self, action: #selector(pushProfilePage), for: .touchUpInside)
         
         let emptySpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        emptySpace.width = 15
+        emptySpace.width = 23
         let profileButton = UIBarButtonItem(customView: profileButton)
         
         navigationItem.rightBarButtonItems = [emptySpace, profileButton]
@@ -166,7 +166,7 @@ class ViewController: UIViewController {
     }
     
     private func pushSelectedService(with service: Service) {
-        let descriptionViewController = DescriptionViewController(with: service)
+        let descriptionViewController = DescriptionViewController(with: service, imageUrl: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg")
         navigationController?.pushViewController(descriptionViewController, animated: true)
     }
     
