@@ -13,6 +13,7 @@ class DeleteUserViewController: UIViewController {
     // MARK: - Properties (view)
     
     private let questionLabel = UILabel()
+    private let questionLabel2 = UILabel()
     private let yesButton = UIButton()
     private let noButton = UIButton()
     
@@ -26,10 +27,11 @@ class DeleteUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.aFinal.silver
+        view.backgroundColor = UIColor.aFinal.offWhite
         navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
         
         setUpQuestionLabel()
+        setUpQuestionLabel2()
         setUpYesButton()
         setUpNoButton()
     }
@@ -49,7 +51,7 @@ class DeleteUserViewController: UIViewController {
     // MARK: - Set Up Views
     
     private func setUpQuestionLabel() {
-        questionLabel.text = "Are you sure you want to delete this account? (This action can't be reversed and all data will be lost.)"
+        questionLabel.text = "Are you sure you want to delete this account?"
         questionLabel.font = .systemFont(ofSize: 22, weight: .semibold)
         questionLabel.textColor = UIColor.black
         questionLabel.textAlignment = .center
@@ -64,6 +66,23 @@ class DeleteUserViewController: UIViewController {
         }
     }
     
+    private func setUpQuestionLabel2() {
+        questionLabel2.text = "This action can't be reversed and all data will be lost!"
+        questionLabel2.font = UIFont.italicSystemFont(ofSize: 18)
+        questionLabel2.textColor = UIColor.black
+        questionLabel2.textAlignment = .center
+        questionLabel2.numberOfLines = 0
+        view.addSubview(questionLabel2)
+        
+        questionLabel2.snp.makeConstraints { make in
+            make.top.equalTo(questionLabel.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    
     private func setUpYesButton() {
         yesButton.backgroundColor = UIColor.red
         yesButton.layer.cornerRadius = 16
@@ -75,7 +94,7 @@ class DeleteUserViewController: UIViewController {
         
         yesButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(90)
-            make.top.equalTo(questionLabel.snp.bottom).offset(30)
+            make.top.equalTo(questionLabel2.snp.bottom).offset(30)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }
@@ -92,7 +111,7 @@ class DeleteUserViewController: UIViewController {
         
         noButton.snp.makeConstraints { make in
             make.leading.equalTo(yesButton.snp.trailing).offset(20)
-            make.top.equalTo(questionLabel.snp.bottom).offset(30)
+            make.top.equalTo(questionLabel2.snp.bottom).offset(30)
             make.width.equalTo(100)
             make.height.equalTo(30)
         }

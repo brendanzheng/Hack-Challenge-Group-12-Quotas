@@ -106,7 +106,7 @@ class ViewController: UIViewController {
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
                
     if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = UIColor.white
+        textField.backgroundColor = UIColor.aFinal.offWhite
             textField.layer.shadowColor = UIColor.gray.cgColor
             textField.layer.shadowOffset = CGSize(width: 0, height: 2)
             textField.layer.shadowOpacity = 1
