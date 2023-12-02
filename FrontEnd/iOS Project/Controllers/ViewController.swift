@@ -190,7 +190,7 @@ class ViewController: UIViewController {
     }
     
     private func pushSelectedService(with service: Service) {
-        let descriptionViewController = DescriptionViewController(user: user, service: service, delegate: self)
+        let descriptionViewController = DescriptionViewController(user: user ?? User(), service: service, delegate: self)
         navigationController?.pushViewController(descriptionViewController, animated: true)
     }
     

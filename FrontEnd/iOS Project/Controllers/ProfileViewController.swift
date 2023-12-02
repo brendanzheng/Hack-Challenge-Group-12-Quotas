@@ -250,10 +250,11 @@ extension ProfileViewController: DeleteUserDelegate {
     }
     
     private func updateProfileViewController() {
+        
         usernameTextField.placeholder = self.user.getUsername()
         userIdTextField.placeholder = "\(self.user.getId())"
         quotasLeftTextField.placeholder = "\(self.user.getQuotasLeft())"
         profilePictureImageView.image = UIImage(systemName: "person")
-
     }
+    
 }
