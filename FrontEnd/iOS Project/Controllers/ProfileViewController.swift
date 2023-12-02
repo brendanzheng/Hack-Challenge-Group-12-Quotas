@@ -225,7 +225,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc private func pushDeleteAccountViewController() {
-        let deleteUserViewController = DeleteUserViewController(user: user)
+        let deleteUserViewController = DeleteUserViewController(user: user, delegate: self)
         navigationController?.pushViewController(deleteUserViewController, animated: true)
     }
     
@@ -240,5 +240,20 @@ extension ProfileViewController: DescriptionViewControllerDelegate {
         DispatchQueue.main.async {
             self.quotasLeftTextField.placeholder = "\(user.getQuotasLeft())"
         }
+    }
+}
+
+extension ProfileViewController: DeleteUserDelegate {
+    func userDeletedAccount() {
+        self.user = User()
+        updateProfileViewController()
+    }
+    
+    private func updateProfileViewController() {
+        usernameTextField.placeholder = self.user.getUsername()
+        userIdTextField.placeholder = "\(self.user.getId())"
+        quotasLeftTextField.placeholder = "\(self.user.getQuotasLeft())"
+        profilePictureImageView.image = UIImage(systemName: "person")
+
     }
 }

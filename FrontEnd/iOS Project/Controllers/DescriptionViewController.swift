@@ -35,7 +35,7 @@ class DescriptionViewController: UIViewController {
         setUpServiceNameLabel()
         setUpImageURL()
         setUpServiceDescriptionLabel()
-        ////        setUpServiceCostLabel()
+        setUpServiceCostLabel()
         setUpUseServiceButton()
     }
     
@@ -70,8 +70,6 @@ class DescriptionViewController: UIViewController {
     }
 
     private func setUpImageURL() {
-//        i/*mageURL.sd_setImage(with: URL(string: images))*/
-        
         imageURL.layer.cornerRadius = 35
         imageURL.layer.masksToBounds = true
         imageURL.clipsToBounds = true
@@ -95,8 +93,7 @@ class DescriptionViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-180)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
-            
-                    }
+        }
     }
 
     private func setUpServiceCostLabel() {
@@ -110,7 +107,6 @@ class DescriptionViewController: UIViewController {
         }
     }
 
-    
     private func setUpUseServiceButton() {
         useServiceButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 80/255, alpha: 1.0)
         useServiceButton.layer.cornerRadius = 8

@@ -40,13 +40,13 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.aFinal.silver
         navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
         
+        fetchUser()
         setUpServicesCollectionView()
         setUpSearchBar()
         setUpFilterBarCollectionView()
         setUpProfileButton()
         fetchAllServices()
         filterServices()
-        fetchUser()
     }
     
     // MARK: - Set Up Views

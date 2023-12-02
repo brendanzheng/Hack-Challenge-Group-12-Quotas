@@ -19,6 +19,7 @@ class DeleteUserViewController: UIViewController {
     // MARK: - Properties (data)
     
     private var user: User!
+    private weak var delegate: DeleteUserDelegate?
     
     // MARK: - viewDidLoad and init
     
@@ -33,9 +34,10 @@ class DeleteUserViewController: UIViewController {
         setUpNoButton()
     }
     
-    init(user: User) {
+    init(user: User, delegate: DeleteUserDelegate) {
         
         self.user = user
+        self.delegate = delegate
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -110,9 +112,16 @@ class DeleteUserViewController: UIViewController {
             guard let self = self else { return }
             
             DispatchQueue.main.async {
+                self.delegate?.userDeletedAccount()
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
     
+}
+
+// MARK: - Delegation
+
+protocol DeleteUserDelegate: AnyObject {
+    func userDeletedAccount()
 }

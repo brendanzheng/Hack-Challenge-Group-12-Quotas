@@ -77,7 +77,7 @@ class ServicesCollectionViewCell: UICollectionViewCell {
     
     private func setUpNameOfService() {
         nameOfServiceLabel.textColor = UIColor.black
-        nameOfServiceLabel.font = .systemFont(ofSize: 30, weight: .semibold)
+        nameOfServiceLabel.font = .systemFont(ofSize: 27, weight: .semibold)
         nameOfServiceLabel.numberOfLines = 2
         contentView.addSubview(nameOfServiceLabel)
         
