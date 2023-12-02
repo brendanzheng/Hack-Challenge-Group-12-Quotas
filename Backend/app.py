@@ -35,6 +35,9 @@ def failure_response(message, code=404):
 # Users
 @app.route("/")
 def hello_world():
+    """
+    Endpoint for base url
+    """
     return "Hello world!"
 
 
@@ -46,7 +49,7 @@ def get_all_users():
     users = []
     for user in User.query.all():
         users.append(user.serialize())
-    return success_response({"users": users})
+    return success_response(users)
 
 
 @app.route("/api/users/<int:user_id>/")
@@ -88,7 +91,7 @@ def create_a_user():
 @app.route("/api/users/<int:user_id>/", methods=["POST"])
 def update_a_user(user_id):
     """
-    Endpoint for updating a user
+    Endpoint for updating a user by id
     """
     body = json.loads(request.data)
     user_username = body.get("username")
@@ -128,7 +131,7 @@ def get_all_services():
     services = []
     for service in Service.query.all():
         services.append(service.serialize_basic_info())
-    return success_response({"services": services})
+    return success_response(services)
 
 
 @app.route("/api/services/<int:service_id>/")
@@ -176,7 +179,7 @@ def create_a_service():
 @app.route("/api/services/<int:service_id>/", methods=["POST"])
 def update_a_service(service_id):
     """
-    Endpoint for updating a service
+    Endpoint for updating a service by id
     """
     body = json.loads(request.data)
     service_name = body.get("name")
@@ -220,7 +223,7 @@ def delete_a_service(service_id):
 @app.route("/api/users/<int:user_id>/service/<int:service_id>/", methods=["POST"])
 def user_requests_service(user_id, service_id):
     """
-    Endpoint for a user requesting a service
+    Endpoint for a user requesting a service, both by ids
     """
     user = User.query.filter_by(id=user_id).first()
     service = Service.query.filter_by(id=service_id).first()
@@ -229,7 +232,7 @@ def user_requests_service(user_id, service_id):
     current_balance = user.quotas_left
     service_cost = service.cost
     if current_balance < service_cost:
-        return failure_response("User doesn't have enough quotas in their balance")
+        return failure_response("User doesn't have enough quotas in their balance", 400)
     user.quotas_left = current_balance - service_cost
     service.users.append(user)
     db.session.commit()
