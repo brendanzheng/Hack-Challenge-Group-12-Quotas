@@ -164,6 +164,7 @@ class ViewController: UIViewController {
         else if selectedFilter == "Least Popular" {
             selectedServices = allServices.filter { $0.getPopularity() <= 2 }
         }
+        
         servicesCollectionView.reloadData()
     }
     

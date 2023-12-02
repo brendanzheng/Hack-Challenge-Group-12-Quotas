@@ -30,13 +30,13 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.aFinal.silver
+        view.backgroundColor = UIColor.white
         
         setUpServiceNameLabel()
-        setUpServiceDescriptionLabel()
-        setUpServiceCostLabel()
-        setUpUseServiceButton()
         setUpImageURL()
+        setUpServiceDescriptionLabel()
+        ////        setUpServiceCostLabel()
+        setUpUseServiceButton()
     }
     
     init(user: User, service: Service, delegate: DescriptionViewControllerDelegate) {
@@ -60,53 +60,56 @@ class DescriptionViewController: UIViewController {
     
     private func setUpServiceNameLabel() {
         serviceNameLabel.textColor = UIColor.black
-        serviceNameLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        serviceNameLabel.font = .systemFont(ofSize: 35, weight: .semibold)
         view.addSubview(serviceNameLabel)
         
         serviceNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(50)
+            make.centerX.equalToSuperview()
         }
     }
-    
+
+    private func setUpImageURL() {
+//        i/*mageURL.sd_setImage(with: URL(string: images))*/
+        
+        imageURL.layer.cornerRadius = 35
+        imageURL.layer.masksToBounds = true
+        imageURL.clipsToBounds = true
+        view.addSubview(imageURL)
+        
+        imageURL.snp.makeConstraints { make in
+            make.top.equalTo(serviceNameLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(350)
+        }
+    }
+
     private func setUpServiceDescriptionLabel() {
         serviceDescriptionLabel.textColor = UIColor.black
-        serviceDescriptionLabel.font = .systemFont(ofSize: 24, weight: .semibold)
-        serviceDescriptionLabel.numberOfLines = 0
+        serviceDescriptionLabel.font = UIFont.italicSystemFont(ofSize: 18)
+        serviceDescriptionLabel.numberOfLines = 4
+        serviceDescriptionLabel.lineBreakMode = .byTruncatingTail
         view.addSubview(serviceDescriptionLabel)
         
         serviceDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(serviceNameLabel.snp.bottom).offset(12)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-        }
+            make.bottom.equalToSuperview().offset(-180)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(200)
+            
+                    }
     }
-    
+
     private func setUpServiceCostLabel() {
         serviceCostLabel.textColor = UIColor.black
         serviceCostLabel.font = .systemFont(ofSize: 24, weight: .semibold)
         view.addSubview(serviceCostLabel)
         
         serviceCostLabel.snp.makeConstraints { make in
-            make.top.equalTo(serviceDescriptionLabel.snp.bottom).offset(12)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.top.equalTo(serviceDescriptionLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
         }
     }
-    
-    private func setUpImageURL() {
-        imageURL.layer.cornerRadius = 32 / 2
-        imageURL.layer.masksToBounds = true
-        imageURL.clipsToBounds = true
-        view.addSubview(imageURL)
-        
-        imageURL.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(100)
-                make.trailing.equalToSuperview().offset(-20)
-                make.width.height.equalTo(150)
-        }
-    }
+
     
     private func setUpUseServiceButton() {
         useServiceButton.backgroundColor = UIColor(red: 255/255, green: 127/255, blue: 80/255, alpha: 1.0)
@@ -134,7 +137,7 @@ class DescriptionViewController: UIViewController {
         view.addSubview(useServiceButton)
         
         useServiceButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.width.equalTo(150)
             make.height.equalTo(50)
