@@ -8,7 +8,7 @@
 
 4. Some screenshots of your app (highlight important features): TODO
 
-5. A short description of your app (its purpose and features): This app allows you to browse various services offered by others such as doing your laundry or cooking you a meal. Everyone is given a certain amount of "quotas" that they can spend on each service.
+5. A short description of your app (its purpose and features): This app allows you to browse and request various services offered by others such as doing your laundry or cooking you a meal. Everyone is given a certain amount of "quotas" that they can spend on each service.
 
 6. A list of how your app addresses each of the requirements:
 
