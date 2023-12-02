@@ -233,16 +233,6 @@ class ProfileViewController: UIViewController {
 
 // MARK: - Delegation
 
-extension ProfileViewController: DescriptionViewControllerDelegate {
-    func updateQuotas(user: User) {
-        self.user = user
-        
-        DispatchQueue.main.async {
-            self.quotasLeftTextField.placeholder = "\(user.getQuotasLeft())"
-        }
-    }
-}
-
 extension ProfileViewController: DeleteUserDelegate {
     func userDeletedAccount() {
         self.user = User()
