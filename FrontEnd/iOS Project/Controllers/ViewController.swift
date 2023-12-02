@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Quotas"
-        view.backgroundColor = UIColor.aFinal.silver
+        view.backgroundColor = UIColor.white
         navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
         
         fetchUser()
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         layout.minimumLineSpacing = 24
         
         servicesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        servicesCollectionView.backgroundColor = UIColor.aFinal.silver
+        servicesCollectionView.backgroundColor = UIColor.white
         servicesCollectionView.alwaysBounceVertical = true
         
         servicesCollectionView.register(ServicesCollectionViewCell.self, forCellWithReuseIdentifier: ServicesCollectionViewCell.reuse)
@@ -74,14 +74,14 @@ class ViewController: UIViewController {
         }
         
     }
-    
+
     private func setUpFilterBarCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 12
         
         filterBarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        filterBarCollectionView.backgroundColor = UIColor.aFinal.silver
+        filterBarCollectionView.backgroundColor = UIColor.white
         filterBarCollectionView.showsHorizontalScrollIndicator = false
         
         filterBarCollectionView.register(FilterBarCollectionViewCell.self, forCellWithReuseIdentifier: FilterBarCollectionViewCell.reuse)
@@ -98,16 +98,22 @@ class ViewController: UIViewController {
             make.height.equalTo(35)
         }
     }
-    
+
     private func setUpSearchBar() {
         searchBar.placeholder = "Search"
         searchBar.delegate = self
-        searchBar.barTintColor = UIColor.aFinal.silver
+        searchBar.barTintColor = UIColor.clear
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+               
+    if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = UIColor.white
+            textField.layer.shadowColor = UIColor.gray.cgColor
+            textField.layer.shadowOffset = CGSize(width: 0, height: 2)
+            textField.layer.shadowOpacity = 1
             textField.layer.cornerRadius = 10
+            textField.layer.shadowRadius = 2
             textField.clipsToBounds = true
+            textField.layer.masksToBounds = false
         }
         view.addSubview(searchBar)
         
@@ -115,12 +121,14 @@ class ViewController: UIViewController {
             make.leading.equalToSuperview().offset(32)
             make.trailing.equalToSuperview().offset(-32)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            
         }
-        
+
+            
     }
-    
+
     // MARK: - Networking
-    
+
     @objc private func fetchAllServices() {
         NetworkManager.shared.fetchAllServices { [weak self] services in
             guard let self = self else { return }
@@ -132,7 +140,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+
     @objc private func fetchUser() {
         NetworkManager.shared.fetchUser { [weak self] user in
             guard let self = self else { return }
@@ -143,9 +151,9 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+
     // MARK: - CollectionView Helpers
-    
+
     private func filterServices() {
         namesOfFavoriteServices = favoriteServices.map { $0.getName() }
         
@@ -167,16 +175,18 @@ class ViewController: UIViewController {
         
         servicesCollectionView.reloadData()
     }
-    
+
     // MARK: - Button Helpers
-    
+
     private func setUpProfileButton() {
         profileButton.setImage(UIImage(systemName: "person"), for: .normal)
+        profileButton.imageView?.contentMode = .scaleAspectFit
+        profileButton.imageEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
+        profileButton.imageView?.clipsToBounds = true
         profileButton.layer.cornerRadius = 10
         profileButton.tintColor = UIColor.black
-        profileButton.backgroundColor = UIColor.aFinal.silver
         profileButton.addTarget(self, action: #selector(pushProfilePage), for: .touchUpInside)
-        
+           
         let emptySpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         emptySpace.width = 23
         let profileButton = UIBarButtonItem(customView: profileButton)

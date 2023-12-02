@@ -46,7 +46,7 @@ class DescriptionViewController: UIViewController {
         
         serviceNameLabel.text = service.getName()
         serviceDescriptionLabel.text = service.getDescription()
-        serviceCostLabel.text = "Quota Cost: \(service.getCost())"
+        serviceCostLabel.text = "Cost: \(service.getCost())"
         imageURL.sd_setImage(with: URL(string: service.getImageURL()))
         
         super.init(nibName: nil, bundle: nil)

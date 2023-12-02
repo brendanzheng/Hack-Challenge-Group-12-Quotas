@@ -25,7 +25,7 @@ class FilterBarCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.aFinal.silver
+        backgroundColor = UIColor.white
         
         setUpFilterButton()
     }
@@ -42,17 +42,17 @@ class FilterBarCollectionViewCell: UICollectionViewCell {
 
         currentFilter = filter
         filterButton.setTitle(filter, for: .normal)
-        filterButton.setTitleColor(isSelected ? UIColor.white : UIColor.black, for: .normal)
+        filterButton.setTitleColor(isSelected ? UIColor.black : UIColor.white, for: .normal)
         filterButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
-        filterButton.backgroundColor = isSelected ? UIColor.orange : UIColor.lightGray
+        filterButton.backgroundColor = isSelected ? UIColor.orange : UIColor.gray
         
     }
-    
+
     // MARK: - Set Up Views
-    
+
     private func setUpFilterButton() {
         filterButton.layer.cornerRadius = 16
-        filterButton.backgroundColor = UIColor.black
+        filterButton.backgroundColor = UIColor.white
         filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
         contentView.addSubview(filterButton)
         
@@ -60,7 +60,7 @@ class FilterBarCollectionViewCell: UICollectionViewCell {
             make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
-    
+
     // MARK: - Button Helpers
     
     @objc private func filterButtonTapped() {

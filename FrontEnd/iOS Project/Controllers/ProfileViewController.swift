@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Profile"
-        view.backgroundColor = UIColor.aFinal.silver
+        view.backgroundColor = UIColor.white
 
         setUpProfilePictureImageView()
         setUpUsernameLabel()
@@ -71,6 +71,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Set Up Views
 
     private func setUpProfilePictureImageView() {
+        
         profilePictureImageView.tintColor = .systemBackground
         profilePictureImageView.layer.cornerRadius = 48
         profilePictureImageView.layer.masksToBounds = true
@@ -79,28 +80,27 @@ class ProfileViewController: UIViewController {
         profilePictureImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
-            make.width.equalTo(250)
-            make.height.equalTo(260)
+            make.width.height.equalTo(200)
         }
     }
 
     private func setUpUsernameLabel() {
         usernameLabel.text = "Username"
-        usernameLabel.font = .systemFont(ofSize: 30, weight: .semibold)
+        usernameLabel.font = .systemFont(ofSize: 25, weight: .semibold)
         usernameLabel.textColor = UIColor.black
         usernameLabel.textAlignment = .center
         view.addSubview(usernameLabel)
 
         usernameLabel.snp.makeConstraints { make in
-            make.top.equalTo(profilePictureImageView.snp.bottom)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.top.equalTo(profilePictureImageView.snp.bottom).offset(21)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(25)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
 
     private func setUpUsernameTextField() {
         usernameTextField.layer.borderWidth = 1
-        usernameTextField.layer.borderColor = UIColor.systemBackground.cgColor
+        usernameTextField.layer.borderColor = UIColor.gray.cgColor
         usernameTextField.layer.cornerRadius = 12
         usernameTextField.textAlignment = .center
         usernameTextField.textColor = .darkGray
@@ -109,23 +109,22 @@ class ProfileViewController: UIViewController {
         view.addSubview(usernameTextField)
 
         usernameTextField.snp.makeConstraints { make in
-            make.top.equalTo(usernameLabel.snp.bottom).offset(8)
+            make.top.equalTo(usernameLabel.snp.bottom).offset(13)
             make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
+            make.width.equalTo(270)
         }
     }
 
     private func setUpUserIdLabel() {
         userIdLabel.text = "User ID"
-        userIdLabel.font = .systemFont(ofSize: 30, weight: .semibold)
+        userIdLabel.font = .systemFont(ofSize: 25, weight: .semibold)
         userIdLabel.textColor = UIColor.black
         userIdLabel.textAlignment = .center
         view.addSubview(userIdLabel)
 
         userIdLabel.snp.makeConstraints { make in
-            make.top.equalTo(usernameTextField.snp.bottom).offset(8)
+            make.top.equalTo(usernameTextField.snp.bottom).offset(13)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
@@ -133,7 +132,7 @@ class ProfileViewController: UIViewController {
         
     private func setUpUserIdTextField() {
         userIdTextField.layer.borderWidth = 1
-        userIdTextField.layer.borderColor = UIColor.systemBackground.cgColor
+        userIdTextField.layer.borderColor = UIColor.gray.cgColor
         userIdTextField.layer.cornerRadius = 12
         userIdTextField.textAlignment = .center
         userIdTextField.textColor = .darkGray
@@ -142,31 +141,30 @@ class ProfileViewController: UIViewController {
         view.addSubview(userIdTextField)
 
         userIdTextField.snp.makeConstraints { make in
-            make.top.equalTo(userIdLabel.snp.bottom).offset(8)
+            make.top.equalTo(userIdLabel.snp.bottom).offset(13)
             make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
+            make.width.equalTo(270)
         }
     }
-    
+
     private func setUpQuotasLeftLabel() {
         quotasLeftLabel.text = "Quotas Left"
-        quotasLeftLabel.font = .systemFont(ofSize: 30, weight: .semibold)
+        quotasLeftLabel.font = .systemFont(ofSize: 25, weight: .semibold)
         quotasLeftLabel.textColor = UIColor.black
         quotasLeftLabel.textAlignment = .center
         view.addSubview(quotasLeftLabel)
 
         quotasLeftLabel.snp.makeConstraints { make in
-            make.top.equalTo(userIdTextField.snp.bottom).offset(8)
+            make.top.equalTo(userIdTextField.snp.bottom).offset(13)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
-    
+
     private func setUpQuotasLeftTextField() {
         quotasLeftTextField.layer.borderWidth = 1
-        quotasLeftTextField.layer.borderColor = UIColor.systemBackground.cgColor
+        quotasLeftTextField.layer.borderColor = UIColor.gray.cgColor
         quotasLeftTextField.layer.cornerRadius = 12
         quotasLeftTextField.textAlignment = .center
         quotasLeftTextField.textColor = .darkGray
@@ -175,33 +173,32 @@ class ProfileViewController: UIViewController {
         view.addSubview(quotasLeftTextField)
 
         quotasLeftTextField.snp.makeConstraints { make in
-            make.top.equalTo(quotasLeftLabel.snp.bottom).offset(8)
+            make.top.equalTo(quotasLeftLabel.snp.bottom).offset(13)
             make.centerX.equalToSuperview()
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
+            make.width.equalTo(270)
         }
     }
-    
+
     private func setUpServicesUsedButton() {
         servicesUsedButton.backgroundColor = UIColor.orange
         servicesUsedButton.layer.cornerRadius = 25
-        servicesUsedButton.setTitle("Used Services", for: .normal)
+        servicesUsedButton.setTitle("Services Used", for: .normal)
         servicesUsedButton.setTitleColor(UIColor.black, for: .normal)
         servicesUsedButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         servicesUsedButton.addTarget(self, action: #selector(pushUserServicesHistory), for: .touchUpInside)
         view.addSubview(servicesUsedButton)
         
         servicesUsedButton.snp.makeConstraints { make in
-            make.top.equalTo(quotasLeftTextField.snp.bottom).offset(10)
+            make.top.equalTo(quotasLeftTextField.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
             make.height.equalTo(50)
         }
     }
-    
+
     private func setUpDeleteAccountButton() {
-        deleteAccountButton.backgroundColor = UIColor.red
+        deleteAccountButton.backgroundColor = UIColor.gray
         deleteAccountButton.layer.cornerRadius = 25
         deleteAccountButton.setTitle("Delete Account", for: .normal)
         deleteAccountButton.setTitleColor(UIColor.black, for: .normal)
@@ -210,12 +207,13 @@ class ProfileViewController: UIViewController {
         view.addSubview(deleteAccountButton)
         
         deleteAccountButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-30)
+            make.bottom.equalToSuperview().offset(-60)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
             make.height.equalTo(50)
         }
     }
+
     
     // MARK: - Button Helpers
     

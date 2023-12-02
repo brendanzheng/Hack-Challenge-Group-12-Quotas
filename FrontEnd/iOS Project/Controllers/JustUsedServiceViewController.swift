@@ -21,16 +21,20 @@ class JustUsedServiceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.aFinal.silver
+        view.backgroundColor = UIColor.white
         
         setUpContactLabel()
+
     }
     
     // MARK: - Set Up Views
     
+
+    
+    
     private func setUpContactLabel() {
         contactLabel.text = "Someone will contact you to provide more information."
-        contactLabel.font = .systemFont(ofSize: 22, weight: .semibold)
+        contactLabel.font = .systemFont(ofSize: 25, weight: .semibold)
         contactLabel.textColor = UIColor.black
         contactLabel.textAlignment = .center
         contactLabel.numberOfLines = 0
@@ -43,4 +47,6 @@ class JustUsedServiceViewController: UIViewController {
             make.centerY.equalToSuperview().offset(-50)
         }
     }
+
+    
 }
