@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "App Name"
+        title = "Quotas"
         view.backgroundColor = UIColor.aFinal.silver
         navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
         

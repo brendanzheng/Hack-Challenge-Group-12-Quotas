@@ -9,8 +9,6 @@ import Foundation
 
 struct User: Codable {
     
-    // Order is id, username, quotas left, profile picture url, and a list of their services history (each of which is in the service json format).
-    
     // MARK: - Properties (data)
     
     private var id: Int

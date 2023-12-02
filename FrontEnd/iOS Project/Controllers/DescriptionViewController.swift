@@ -146,7 +146,7 @@ class DescriptionViewController: UIViewController {
     
     @objc private func useServiceButtonPressed() {
         
-        NetworkManager.shared.decreaseQuotaCost(quotaCost: service.getCost(), user: user) { [weak self] user in
+        NetworkManager.shared.decreaseQuotaCost(service: service, user: user) { [weak self] user in
             guard let self = self else { return }
             self.delegate?.updateQuotas(user: user)
             

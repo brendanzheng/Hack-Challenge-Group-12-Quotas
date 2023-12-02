@@ -79,14 +79,17 @@ class NetworkManager {
             }
     }
     
-    func decreaseQuotaCost(quotaCost: Int, user: User, completion: @escaping(User) -> Void) {
+    func decreaseQuotaCost(service: Service, user: User, completion: @escaping(User) -> Void) {
         
-        let devEndPointDecreaseQuotaCost = "\(endpoint)api/users/1/service/1/"
+        let devEndPointDecreaseQuotaCost = "\(endpoint)api/users/1/service/\(service.getId())/"
+        
+        let quotas = user.getQuotasLeft() - service.getCost()
+        print(service.getId())
         
         let parameters: Parameters = [
             "id": user.getId(),
             "username": user.getUsername(),
-            "quotas_left": user.getQuotasLeft() - quotaCost,
+            "quotas_left": quotas,
             "profile_picture": user.getProfilePicture(),
             "services": user.getServices()
         ]

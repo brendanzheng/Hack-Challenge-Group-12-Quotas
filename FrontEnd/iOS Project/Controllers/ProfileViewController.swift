@@ -79,7 +79,8 @@ class ProfileViewController: UIViewController {
         profilePictureImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
-            make.width.height.equalTo(200)
+            make.width.equalTo(250)
+            make.height.equalTo(260)
         }
     }
 
