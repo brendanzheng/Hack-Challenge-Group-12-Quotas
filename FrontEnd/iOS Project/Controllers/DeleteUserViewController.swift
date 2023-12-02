@@ -18,7 +18,9 @@ class DeleteUserViewController: UIViewController {
     
     // MARK: - Properties (data)
     
-    // MARK: - viewDidLoad
+    private var user: User!
+    
+    // MARK: - viewDidLoad and init
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,17 @@ class DeleteUserViewController: UIViewController {
         setUpQuestionLabel()
         setUpYesButton()
         setUpNoButton()
+    }
+    
+    init(user: User) {
+        
+        self.user = user
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Set Up Views
@@ -55,7 +68,7 @@ class DeleteUserViewController: UIViewController {
         yesButton.setTitle("Yes", for: .normal)
         yesButton.setTitleColor(UIColor.black, for: .normal)
         yesButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-//        yesButton.addTarget(self, action: T##Selector, for: .touchUpInside)
+        yesButton.addTarget(self, action: #selector(yesButtonPressed), for: .touchUpInside)
         view.addSubview(yesButton)
         
         yesButton.snp.makeConstraints { make in
@@ -90,6 +103,16 @@ class DeleteUserViewController: UIViewController {
     }
     
     // MARK: - Networking
-    // implement delete user logic here
+    
+    @objc private func yesButtonPressed() {
+        
+        NetworkManager.shared.deleteUser(user: user) { [weak self] user in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
     
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class DescriptionViewController: UIViewController {
     
@@ -17,12 +18,12 @@ class DescriptionViewController: UIViewController {
     private let serviceCostLabel = UILabel()
     private let useServiceButton = UIButton()
     private let imageURL = UIImageView()
-    var images : String
     
     // MARK: - Properties (data)
     
     private var service: Service!
     private var user: User!
+    private weak var delegate: DescriptionViewControllerDelegate?
     
     // MARK: - viewDidLoad and init
     
@@ -38,13 +39,15 @@ class DescriptionViewController: UIViewController {
         setUpImageURL()
     }
     
-    init(with service: Service, imageUrl: String) {
+    init(user: User, service: Service, delegate: DescriptionViewControllerDelegate) {
+        self.user = user
         self.service = service
-        images = imageUrl
+        self.delegate = delegate
         
         serviceNameLabel.text = service.getName()
         serviceDescriptionLabel.text = service.getDescription()
         serviceCostLabel.text = "Quota Cost: \(service.getCost())"
+        imageURL.sd_setImage(with: URL(string: service.getImageURL()))
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -93,8 +96,6 @@ class DescriptionViewController: UIViewController {
     }
     
     private func setUpImageURL() {
-        imageURL.sd_setImage(with: URL(string: images))
-        
         imageURL.layer.cornerRadius = 32 / 2
         imageURL.layer.masksToBounds = true
         imageURL.clipsToBounds = true
@@ -129,7 +130,7 @@ class DescriptionViewController: UIViewController {
         pulseAnimation.autoreverses = true
         pulseAnimation.repeatCount = Float.infinity
         useServiceButton.layer.add(pulseAnimation, forKey: "pulse")
-        useServiceButton.addTarget(self, action: #selector(serviceButtonPressed), for: .touchUpInside)
+        useServiceButton.addTarget(self, action: #selector(useServiceButtonPressed), for: .touchUpInside)
         view.addSubview(useServiceButton)
         
         useServiceButton.snp.makeConstraints { make in
@@ -138,16 +139,29 @@ class DescriptionViewController: UIViewController {
             make.width.equalTo(150)
             make.height.equalTo(50)
         }
-    
        
     }
     
     // MARK: - Button Helpers
     
-    @objc private func serviceButtonPressed() {
+    @objc private func useServiceButtonPressed() {
         
-        // this function decreases the amount of quotas the user has
-        // should be implemented through the use of networking
-        // pseudocode example for quota cost of 1: user.getQuotasLeft() - 1
+        NetworkManager.shared.decreaseQuotaCost(quotaCost: service.getCost(), user: user) { [weak self] user in
+            guard let self = self else { return }
+            self.delegate?.updateQuotas(user: user)
+            
+            DispatchQueue.main.async {
+                let justUsedServiceViewController = JustUsedServiceViewController()
+                self.navigationController?.pushViewController(justUsedServiceViewController, animated: true)
+            }
+        }
     }
+    
 }
+
+// MARK: - Delegation
+
+protocol DescriptionViewControllerDelegate: AnyObject {
+    func updateQuotas(user: User)
+}
+

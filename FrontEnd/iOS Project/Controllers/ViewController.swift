@@ -19,21 +19,16 @@ class ViewController: UIViewController {
     
     // MARK: - Properties (data)
     
-    // fill service with dummy data until networking is integrated
-    private var allServices: [Service] = [
-        Service(serviceId: 1, imageURL: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg", name: "Calendar", description: "designed to keep a calendar of all of your events", popularity: "4.5", cost: 3),
-        Service(serviceId: 2, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1),
-        Service(serviceId: 3, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.8", cost: 3),
-        Service(serviceId: 4, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "1.0", cost: 5),
-        Service(serviceId: 5, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1),
-        Service(serviceId: 6, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "3.0", cost: 2)
-    ]
-    private var serviceNames: [String] = []
+    private var allServices: [Service] = []
     private var selectedServices: [Service] = []
-    private var filters: [String] = ["All", "Favorites", "Most Popular", "Lowest Cost"]
-    private var selectedFilter: String = "All"
     private var favoriteServices: [Service] = []
+    
+    private var serviceNames: [String] = []
     private var namesOfFavoriteServices: [String] = []
+    
+    private var filters: [String] = ["All", "Most Popular", "Lowest Cost", "Least Popular"]
+    private var selectedFilter: String = "All"
+    
     private var user: User!
     
     // MARK: - viewDidLoad
@@ -49,7 +44,9 @@ class ViewController: UIViewController {
         setUpSearchBar()
         setUpFilterBarCollectionView()
         setUpProfileButton()
+        fetchAllServices()
         filterServices()
+        fetchUser()
     }
     
     // MARK: - Set Up Views
@@ -76,8 +73,6 @@ class ViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-32)
         }
         
-        // MARK: - REMOVE THE NEXT LINE WHEN NETWORKING INTEGRATION IS COMPLETED
-        selectedServices = allServices
     }
     
     private func setUpFilterBarCollectionView() {
@@ -124,6 +119,31 @@ class ViewController: UIViewController {
         
     }
     
+    // MARK: - Networking
+    
+    @objc private func fetchAllServices() {
+        NetworkManager.shared.fetchAllServices { [weak self] services in
+            guard let self = self else { return }
+            self.allServices = services
+            self.selectedServices = services
+            
+            DispatchQueue.main.async {
+                self.servicesCollectionView.reloadData()
+            }
+        }
+    }
+    
+    @objc private func fetchUser() {
+        NetworkManager.shared.fetchUser { [weak self] user in
+            guard let self = self else { return }
+            self.user = user
+            
+            DispatchQueue.main.async {
+                self.servicesCollectionView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - CollectionView Helpers
     
     private func filterServices() {
@@ -136,10 +156,13 @@ class ViewController: UIViewController {
             selectedServices = favoriteServices
         }
         else if selectedFilter == "Most Popular" {
-            selectedServices = allServices.filter { Double($0.getPopularity())! >= 4.8 }
+            selectedServices = allServices.filter { $0.getPopularity() >= 9.0 }
         }
         else if selectedFilter == "Lowest Cost" {
-            selectedServices = allServices.filter { Int(exactly: $0.getCost())! <= 1 }
+            selectedServices = allServices.filter { $0.getCost() <= 1 }
+        }
+        else if selectedFilter == "Least Popular" {
+            selectedServices = allServices.filter { $0.getPopularity() <= 2 }
         }
         servicesCollectionView.reloadData()
     }
@@ -161,28 +184,24 @@ class ViewController: UIViewController {
     }
     
     @objc private func pushProfilePage() {
-        let profileViewController = ProfileViewController()
+        let profileViewController = ProfileViewController(user: user ?? User())
         navigationController?.pushViewController(profileViewController, animated: true)
     }
     
     private func pushSelectedService(with service: Service) {
-        let descriptionViewController = DescriptionViewController(with: service, imageUrl: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg")
+        let descriptionViewController = DescriptionViewController(user: user, service: service, delegate: self)
         navigationController?.pushViewController(descriptionViewController, animated: true)
     }
-    
-    
-    
-    
-    // MARK: - Networking
-    
-    // fetch all services
-    // fetch user data
-    
     
 }
 
 // MARK: - Delegation
 
+extension ViewController: DescriptionViewControllerDelegate {
+    func updateQuotas(user: User) {
+        self.user = user
+    }
+}
 
 // MARK: - FilterBarCollectionViewDelegate
 
@@ -199,7 +218,6 @@ extension ViewController: FilterCollectionViewDelegate {
     }
     
 }
-
 
 // MARK: - UICollectionViewDelegate
 

@@ -7,23 +7,22 @@
 
 import Foundation
 
-class Service: Codable {
+struct Service: Codable {
     
     // MARK: - Properties (data)
     
-    private var serviceId: Int
-    private var imageURL: String
+    private var id: Int
+    private var image_url: String
     private var name: String
     private var description: String
-    private var popularity: String
+    private var popularity: Double
     private var cost: Int
     
     // MARK: - init
     
-    init(serviceId: Int, imageURL: String, name: String, description: String, popularity: String, cost: Int) {
-        
-        self.serviceId = serviceId
-        self.imageURL = imageURL
+    init(id: Int, image_url: String, name: String, description: String, popularity: Double, cost: Int) {
+        self.id = id
+        self.image_url = image_url
         self.name = name
         self.description = description
         self.popularity = popularity
@@ -32,12 +31,12 @@ class Service: Codable {
     
     // MARK: - Get Functions
     
-    public func getServiceId() -> Int {
-        return serviceId
+    public func getId() -> Int {
+        return id
     }
     
     public func getImageURL() -> String {
-        return imageURL
+        return image_url
     }
     
     public func getName() -> String {
@@ -48,7 +47,7 @@ class Service: Codable {
         return description
     }
     
-    public func getPopularity() -> String {
+    public func getPopularity() -> Double {
         return popularity
     }
     

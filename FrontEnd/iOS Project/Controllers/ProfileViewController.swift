@@ -16,8 +16,10 @@ class ProfileViewController: UIViewController {
     private let profilePictureImageView = UIImageView()
     private let usernameLabel = UILabel()
     private let userIdLabel = UILabel()
-    private let usernametextfield = UITextField()
-    private let userIdtextfield = UITextField()
+    private let usernameTextField = UITextField()
+    private let userIdTextField = UITextField()
+    private let quotasLeftLabel = UILabel()
+    private let quotasLeftTextField = UITextField()
     private let servicesUsedButton = UIButton()
     private let deleteAccountButton = UIButton()
     
@@ -33,19 +35,32 @@ class ProfileViewController: UIViewController {
         
         title = "Profile"
         view.backgroundColor = UIColor.aFinal.silver
-        
 
         setUpProfilePictureImageView()
         setUpUsernameLabel()
+        setUpUsernameTextField()
         setUpUserIdLabel()
-        setUpUserIdLabel()
-        setUpUsernametextfield()
-        setUpUserIdtextfield()
+        setUpUserIdTextField()
+        setUpQuotasLeftLabel()
+        setUpQuotasLeftTextField()
         setUpServicesUsedButton()
         setUpDeleteAccountButton()
     }
 
-    init() {
+    init(user: User) {
+        
+        self.user = user
+        usernameTextField.placeholder = user.getUsername()
+        userIdTextField.placeholder = "\(user.getId())"
+        quotasLeftTextField.placeholder = "\(user.getQuotasLeft())"
+        
+        let profilePictureURL = user.getProfilePicture()
+        if !profilePictureURL.isEmpty {
+            profilePictureImageView.sd_setImage(with: URL(string: profilePictureURL))
+        } else {
+            profilePictureImageView.image = UIImage(systemName: "person")
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -56,7 +71,6 @@ class ProfileViewController: UIViewController {
     // MARK: - Set Up Views
 
     private func setUpProfilePictureImageView() {
-        profilePictureImageView.image = UIImage(systemName: "person")?.withRenderingMode(.alwaysTemplate)
         profilePictureImageView.tintColor = .systemBackground
         profilePictureImageView.layer.cornerRadius = 48
         profilePictureImageView.layer.masksToBounds = true
@@ -77,25 +91,23 @@ class ProfileViewController: UIViewController {
         view.addSubview(usernameLabel)
 
         usernameLabel.snp.makeConstraints { make in
-            make.top.equalTo(profilePictureImageView.snp.bottom).offset(55)
+            make.top.equalTo(profilePictureImageView.snp.bottom)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
 
-    private func setUpUsernametextfield() {
-        // configure user's username from backend integration
-        // for now we will just use the following
-        // usernametextfield.placeholder = "Edit Username"
-        usernametextfield.layer.borderWidth = 1
-        usernametextfield.layer.borderColor = UIColor.systemBackground.cgColor
-        usernametextfield.layer.cornerRadius = 12
-        usernametextfield.textAlignment = .center
-        usernametextfield.textColor = .darkGray
-        usernametextfield.font = .systemFont(ofSize: 16)
-        view.addSubview(usernametextfield)
+    private func setUpUsernameTextField() {
+        usernameTextField.layer.borderWidth = 1
+        usernameTextField.layer.borderColor = UIColor.systemBackground.cgColor
+        usernameTextField.layer.cornerRadius = 12
+        usernameTextField.textAlignment = .center
+        usernameTextField.textColor = .darkGray
+        usernameTextField.font = .systemFont(ofSize: 30)
+        usernameTextField.isUserInteractionEnabled = false
+        view.addSubview(usernameTextField)
 
-        usernametextfield.snp.makeConstraints { make in
+        usernameTextField.snp.makeConstraints { make in
             make.top.equalTo(usernameLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
@@ -112,25 +124,57 @@ class ProfileViewController: UIViewController {
         view.addSubview(userIdLabel)
 
         userIdLabel.snp.makeConstraints { make in
-            make.top.equalTo(profilePictureImageView.snp.bottom).offset(142)
+            make.top.equalTo(usernameTextField.snp.bottom).offset(8)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
         
-    private func setUpUserIdtextfield() {
-        // configure user's user ID from backend integration
-        // userIdtextfield.placeholder = "Edit User ID"
-        userIdtextfield.layer.borderWidth = 1
-        userIdtextfield.layer.borderColor = UIColor.systemBackground.cgColor
-        userIdtextfield.layer.cornerRadius = 12
-        userIdtextfield.textAlignment = .center
-        userIdtextfield.textColor = .darkGray
-        userIdtextfield.font = .systemFont(ofSize: 16)
-        view.addSubview(userIdtextfield)
+    private func setUpUserIdTextField() {
+        userIdTextField.layer.borderWidth = 1
+        userIdTextField.layer.borderColor = UIColor.systemBackground.cgColor
+        userIdTextField.layer.cornerRadius = 12
+        userIdTextField.textAlignment = .center
+        userIdTextField.textColor = .darkGray
+        userIdTextField.font = .systemFont(ofSize: 30)
+        userIdTextField.isUserInteractionEnabled = false
+        view.addSubview(userIdTextField)
 
-        userIdtextfield.snp.makeConstraints { make in
+        userIdTextField.snp.makeConstraints { make in
             make.top.equalTo(userIdLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(40)
+        }
+    }
+    
+    private func setUpQuotasLeftLabel() {
+        quotasLeftLabel.text = "Quotas Left"
+        quotasLeftLabel.font = .systemFont(ofSize: 30, weight: .semibold)
+        quotasLeftLabel.textColor = UIColor.black
+        quotasLeftLabel.textAlignment = .center
+        view.addSubview(quotasLeftLabel)
+
+        quotasLeftLabel.snp.makeConstraints { make in
+            make.top.equalTo(userIdTextField.snp.bottom).offset(8)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
+        }
+    }
+    
+    private func setUpQuotasLeftTextField() {
+        quotasLeftTextField.layer.borderWidth = 1
+        quotasLeftTextField.layer.borderColor = UIColor.systemBackground.cgColor
+        quotasLeftTextField.layer.cornerRadius = 12
+        quotasLeftTextField.textAlignment = .center
+        quotasLeftTextField.textColor = .darkGray
+        quotasLeftTextField.font = .systemFont(ofSize: 30)
+        quotasLeftTextField.isUserInteractionEnabled = false
+        view.addSubview(quotasLeftTextField)
+
+        quotasLeftTextField.snp.makeConstraints { make in
+            make.top.equalTo(quotasLeftLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
@@ -148,7 +192,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(servicesUsedButton)
         
         servicesUsedButton.snp.makeConstraints { make in
-            make.top.equalTo(profilePictureImageView.snp.bottom).offset(250)
+            make.top.equalTo(quotasLeftTextField.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.width.equalTo(200)
             make.height.equalTo(50)
@@ -175,14 +219,25 @@ class ProfileViewController: UIViewController {
     // MARK: - Button Helpers
     
     @objc private func pushUserServicesHistory() {
-        let userServicesViewController = UserServicesViewController()
+        let userServicesViewController = UserServicesViewController(user: user)
         navigationController?.pushViewController(userServicesViewController, animated: true)
     }
     
     @objc private func pushDeleteAccountViewController() {
-        let deleteUserViewController = DeleteUserViewController()
+        let deleteUserViewController = DeleteUserViewController(user: user)
         navigationController?.pushViewController(deleteUserViewController, animated: true)
     }
     
+}
 
+// MARK: - Delegation
+
+extension ProfileViewController: DescriptionViewControllerDelegate {
+    func updateQuotas(user: User) {
+        self.user = user
+        
+        DispatchQueue.main.async {
+            self.quotasLeftTextField.placeholder = "\(user.getQuotasLeft())"
+        }
+    }
 }

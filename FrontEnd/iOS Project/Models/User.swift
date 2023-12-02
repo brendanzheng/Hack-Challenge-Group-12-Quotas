@@ -9,30 +9,39 @@ import Foundation
 
 struct User: Codable {
     
+    // Order is id, username, quotas left, profile picture url, and a list of their services history (each of which is in the service json format).
+    
     // MARK: - Properties (data)
     
-    private var profilePicture: String
-    private var userId: Int
+    private var id: Int
     private var username: String
-    private var quotasLeft: Int
+    private var quotas_left: Int
+    private var profile_picture: String
+    private var services: [Service]
     
     // MARK: - init
     
-    init(profilePicture: String, userId: Int, username: String, quotasLeft: Int) {
-        self.profilePicture = profilePicture
-        self.userId = userId
-        self.username = username
-        self.quotasLeft = quotasLeft
+    init() {
+        self.id = 0
+        self.username = ""
+        self.quotas_left = 0
+        self.profile_picture = ""
+        self.services = []
     }
+    
+    init(id: Int, username: String, quotas_left: Int, profile_picture: String, services: [Service]) {
+        self.id = id
+        self.username = username
+        self.quotas_left = quotas_left
+        self.profile_picture = profile_picture
+        self.services = services
+    }
+    
     
     // MARK: - Get Functions
     
-    public func getProfilePicture() -> String {
-        return profilePicture
-    }
-    
-    public func getUserId() -> Int {
-        return userId
+    public func getId() -> Int {
+        return id
     }
     
     public func getUsername() -> String {
@@ -40,7 +49,15 @@ struct User: Codable {
     }
     
     public func getQuotasLeft() -> Int {
-        return quotasLeft
+        return quotas_left
+    }
+    
+    public func getProfilePicture() -> String {
+        return profile_picture
+    }
+    
+    public func getServices() -> [Service] {
+        return services
     }
     
 }

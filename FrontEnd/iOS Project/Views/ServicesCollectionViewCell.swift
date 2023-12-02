@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import SDWebImage
 import SnapKit
+import SDWebImage
 
 class ServicesCollectionViewCell: UICollectionViewCell {
     

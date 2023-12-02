@@ -16,17 +16,10 @@ class UserServicesViewController: UIViewController {
     
     // MARK: - Properties (data)
     
-    private var servicesUsed: [Service] = [
-        Service(serviceId: 1, imageURL: "https://static.vecteezy.com/system/resources/previews/005/988/959/original/calendar-icon-free-vector.jpg", name: "Calendar", description: "designed to keep a calendar of all of your events", popularity: "4.5", cost: 3),
-        Service(serviceId: 2, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1),
-        Service(serviceId: 3, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.8", cost: 3),
-        Service(serviceId: 4, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "1.0", cost: 5),
-        Service(serviceId: 5, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "4.9", cost: 1),
-        Service(serviceId: 6, imageURL: "https://png.pngtree.com/png-vector/20190628/ourmid/pngtree-task-icon-for-your-project-png-image_1520262.jpg", name: "Tasks", description: "keeps a running list of all your tasks", popularity: "3.0", cost: 2)
-    ]
+    private var servicesUsed: [Service]!
     private var user: User!
     
-    // MARK: viewDidLoad
+    // MARK: viewDidLoad and init
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +30,17 @@ class UserServicesViewController: UIViewController {
         
         setUpServicesHistoryCollectionView()
         
+    }
+    
+    init(user: User) {
+        self.user = user
+        self.servicesUsed = user.getServices()
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Set Up Views
@@ -63,11 +67,6 @@ class UserServicesViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-32)
         }
     }
-    
-    // MARK: Networking
-    
-    // fetch the services that the user used through backend
-    // fetch user and then the services inside the user's JSON list
 
 }
 
