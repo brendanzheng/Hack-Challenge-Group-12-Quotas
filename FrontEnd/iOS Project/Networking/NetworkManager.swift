@@ -84,7 +84,6 @@ class NetworkManager {
         let devEndPointDecreaseQuotaCost = "\(endpoint)api/users/1/service/\(service.getId())/"
         
         let quotas = user.getQuotasLeft() - service.getCost()
-        print(service.getId())
         
         let parameters: Parameters = [
             "id": user.getId(),
