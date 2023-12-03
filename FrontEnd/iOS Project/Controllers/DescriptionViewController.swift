@@ -30,6 +30,7 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Service"
         view.backgroundColor = UIColor.white
         
         setUpServiceNameLabel()

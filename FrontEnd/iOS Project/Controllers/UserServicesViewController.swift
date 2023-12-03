@@ -25,8 +25,8 @@ class UserServicesViewController: UIViewController {
         super.viewDidLoad()
         
         title = "History"
-        view.backgroundColor = UIColor.aFinal.silver
-        navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
+        view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = UIColor.white
         
         setUpServicesHistoryCollectionView()
         
@@ -52,7 +52,7 @@ class UserServicesViewController: UIViewController {
         layout.minimumLineSpacing = 24
         
         servicesHistoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        servicesHistoryCollectionView.backgroundColor = UIColor.aFinal.silver
+        servicesHistoryCollectionView.backgroundColor = UIColor.white
         servicesHistoryCollectionView.alwaysBounceVertical = true
         
         servicesHistoryCollectionView.register(ServicesCollectionViewCell.self, forCellWithReuseIdentifier: ServicesCollectionViewCell.reuse)

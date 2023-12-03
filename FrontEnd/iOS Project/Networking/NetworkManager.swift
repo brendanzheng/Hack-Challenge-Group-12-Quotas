@@ -57,7 +57,7 @@ class NetworkManager {
     
     func deleteUser(user: User, completion: @escaping(User) -> Void) {
         
-        let devEndPointDeleteUser = "\(endpoint)api/users/1/"
+        let devEndPointDeleteUser = "\(endpoint)api/users/\(user.getId())/"
         
         let parameters: Parameters = [
             "id": user.getId(),
@@ -80,8 +80,8 @@ class NetworkManager {
     }
     
     func decreaseQuotaCost(service: Service, user: User, completion: @escaping(User) -> Void) {
-        
-        let devEndPointDecreaseQuotaCost = "\(endpoint)api/users/1/service/\(service.getId())/"
+
+        let devEndPointDecreaseQuotaCost = "\(endpoint)api/users/\(user.getId())/service/\(service.getId())/"
         
         let quotas = user.getQuotasLeft() - service.getCost()
         

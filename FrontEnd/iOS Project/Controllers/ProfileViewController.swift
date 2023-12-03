@@ -198,7 +198,7 @@ class ProfileViewController: UIViewController {
     }
 
     private func setUpDeleteAccountButton() {
-        deleteAccountButton.backgroundColor = UIColor.gray
+        deleteAccountButton.backgroundColor = UIColor.red
         deleteAccountButton.layer.cornerRadius = 25
         deleteAccountButton.setTitle("Delete Account", for: .normal)
         deleteAccountButton.setTitleColor(UIColor.black, for: .normal)

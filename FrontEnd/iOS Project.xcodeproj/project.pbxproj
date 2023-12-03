@@ -112,8 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				EF1823DF2B0994A1005ED67A /* ViewController.swift */,
-				EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */,
 				EF9DFD8E2B190F1500669D38 /* DescriptionViewController.swift */,
+				EF9CA6242B1632A100B5E9DF /* ProfileViewController.swift */,
 				EF6BCD102B1A6A70001A7FBF /* UserServicesViewController.swift */,
 				EF6BCD122B1A87EA001A7FBF /* DeleteUserViewController.swift */,
 				EF6BCD162B1AD362001A7FBF /* JustUsedServiceViewController.swift */,

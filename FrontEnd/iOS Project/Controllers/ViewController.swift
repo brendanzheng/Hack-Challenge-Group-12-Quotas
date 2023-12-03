@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         
         title = "Quotas"
         view.backgroundColor = UIColor.white
-        navigationController?.navigationBar.barTintColor = UIColor.aFinal.silver
+        navigationController?.navigationBar.barTintColor = UIColor.white
         
         fetchUser()
         setUpServicesCollectionView()
@@ -124,7 +124,6 @@ class ViewController: UIViewController {
             
         }
 
-            
     }
 
     // MARK: - Networking
